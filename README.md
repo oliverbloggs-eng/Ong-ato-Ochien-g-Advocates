@@ -1,39 +1,29 @@
-# Ong'ato, Ochieng' & Co. Advocates — Website
+# Ong'ato, Ochieng' & Co. Advocates — Website (single file)
 
-Static site. No build step, no dependencies to install.
+One self-contained `index.html`. All CSS, JavaScript, the design system, and
+every image are inlined, so there are no folders that can go missing.
 
-## Deploy to Netlify
+## Deploy
 
-1. Push this folder to a GitHub repo.
-2. In Netlify: **Add new site → Import an existing project** → pick the repo.
-3. Settings:
-   - **Build command:** *(leave empty)*
-   - **Publish directory:** `.` — or `deploy` if you pushed the whole project rather than just this folder.
-4. Deploy.
+**Netlify drag-and-drop:** go to netlify.com/drop and drop this folder in.
 
-Drag-and-drop also works: netlify.com/drop, drop this folder in.
+**Via GitHub:** commit `index.html` to a repo, then in Netlify choose
+*Add new site → Import an existing project*, leave the build command empty and
+set the publish directory to `.`.
 
-## Structure
+## Why this version
 
-```
-index.html        the site (markup + logic in one file)
-support.js        runtime that renders it
-image-slot.js     image placeholder component
-assets/           logo and photography
-_ds/              design system — tokens, styles, component bundle
-```
+The earlier multi-folder package relies on `_ds/` and `assets/` sitting beside
+`index.html`. If either folder is missing from the server you get exactly what
+went wrong on the first deploy: no gold, no buttons, and broken images. Common
+causes are a `.gitignore` skipping underscore-prefixed folders, GitHub Pages'
+Jekyll stripping `_ds/`, or only `index.html` being committed.
 
-## Editing
-
-Content and layout live in `index.html`. The template is the markup inside
-`<x-dc>`; the data (partners, blog posts, practice areas, sectors) is in the
-`renderVals()` method of the script block below it.
-
-Replace photography by dropping new files into `assets/` under the same
-filenames, or update the `src` paths in `index.html`.
+This build has no such dependency. The one trade-off is file size (~15 MB) and
+that editing it by hand is awkward — keep the multi-folder version as your
+working source and re-export when you need to.
 
 ## Notes
 
-- Requires an internet connection at runtime: React, Babel, Lucide icons and
-  Google Fonts load from CDNs.
-- `netlify.toml` sets long-lived caching for assets and security headers.
+- React, Babel, Lucide and Google Fonts still load from CDNs (versions pinned),
+  so the page needs an internet connection.
