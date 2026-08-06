@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="_ds/ong-ato-ochieng-advocates-design-system-8d1cc251-24b9-40da-863d-5bce532478bb/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/ong-ato-ochieng-advocates-design-system-8d1cc251-24b9-40da-863d-5bce532478bb/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/ong-ato-ochieng-advocates-design-system-8d1cc251-24b9-40da-863d-5bce532478bb/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/ong-ato-ochieng-advocates-design-system-8d1cc251-24b9-40da-863d-5bce532478bb/tokens/radii.css">
+  <link rel="stylesheet" href="_ds/ong-ato-ochieng-advocates-design-system-8d1cc251-24b9-40da-863d-5bce532478bb/styles.css">
+  <script src="_ds/ong-ato-ochieng-advocates-design-system-8d1cc251-24b9-40da-863d-5bce532478bb/_ds_bundle.js"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="./image-slot.js"></script>
+  <template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#00351d"/><circle cx="43" cy="50" r="17" fill="none" stroke="#c0a030" stroke-width="6"/><circle cx="59" cy="50" r="17" fill="none" stroke="#f6f7f4" stroke-width="6"/></svg></template>
+  <style>
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{font-family:var(--font-sans);background:var(--white);color:var(--ink-900)}
+    a{color:var(--color-link);text-decoration:none}
+    a:hover{color:var(--color-link-hover)}
+    ::selection{background:var(--gold-200)}
+    @keyframes ooc-rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+    /* ---- Mobile: inline styles need !important to be overridden ---- */
+    @media (max-width: 900px){
+      [style*="grid-template-columns"]{grid-template-columns:1fr !important}
+      main section > div,
+      header > div,
+      footer > div > div{padding-left:20px !important;padding-right:20px !important}
+      main section > div{padding-top:52px !important;padding-bottom:52px !important}
+      h1{font-size:32px !important;line-height:1.14 !important}
+      h2{font-size:26px !important;line-height:1.2 !important}
+      h3{font-size:20px !important}
+      main p{font-size:15.5px !important;line-height:1.65 !important}
+      blockquote{font-size:17px !important;padding-left:16px !important;margin:20px 0 !important}
+      img{max-width:100% !important;height:auto !important}
+    }
+    @media (max-width: 640px){
+      /* header: logo + wrapping nav */
+      header > div{height:auto !important;flex-direction:column !important;gap:10px !important;padding-top:12px !important;padding-bottom:12px !important}
+      header nav{margin-left:0 !important;flex-wrap:wrap !important;justify-content:center !important;gap:2px !important}
+      header nav button{padding:8px 10px !important;font-size:12px !important}
+      header img{height:40px !important}
+
+      /* hero */
+      h1{font-size:27px !important}
+
+      /* stacked media blocks shouldn't keep desktop heights */
+      [data-m="media"]{height:230px !important}
+      [data-m="media-sm"]{height:250px !important}
+
+      /* generous tap targets, full-width CTAs */
+      button,a[href^="https://wa.me"]{min-height:44px !important}
+      [data-m="hero-cta"] > *{width:100% !important}
+
+      /* WhatsApp pill compact */
+      a[aria-label="Chat with us on WhatsApp"]{right:14px !important;bottom:14px !important;padding:12px !important;font-size:0 !important;gap:0 !important}
+      a[aria-label="Chat with us on WhatsApp"] svg{width:24px !important;height:24px !important}
+
+      footer > div > div{gap:32px !important;padding-top:48px !important;padding-bottom:40px !important}
+    }
+    @media (max-width:820px){
+      h1{font-size:34px !important;line-height:1.14 !important;letter-spacing:-0.2px !important}
+      h2{font-size:25px !important;line-height:1.22 !important}
+      h3{font-size:18.5px !important}
+      h4{font-size:19px !important}
+      p{font-size:15.5px !important;line-height:1.68 !important}
+      blockquote{font-size:17px !important;line-height:1.5 !important;padding-left:16px !important;margin:20px 0 !important}
+      li{font-size:14px !important}
+      div[style*="grid-template-columns"]{grid-template-columns:1fr !important;gap:20px !important}
+      section > div,article,footer div[style*="max-width"]{padding-left:20px !important;padding-right:20px !important}
+      section > div{padding-top:52px !important;padding-bottom:52px !important}
+      section[style*="min-height"]{min-height:0 !important}
+      header > div{height:auto !important;padding:12px 20px !important;flex-wrap:wrap !important;gap:8px !important;justify-content:center !important}
+      header img{height:40px !important}
+      nav{margin-left:0 !important;flex-wrap:wrap !important;justify-content:center !important;gap:2px !important}
+      nav button{padding:7px 10px !important;font-size:12px !important}
+      a[href^="https://wa.me"]{right:16px !important;bottom:16px !important;padding:11px 16px 11px 13px !important;font-size:13.5px !important}
+    }
+    @media (max-width:900px){
+      /* Home hero: compressed on mobile */
+      [data-m="hero"]{min-height:0 !important}
+      [data-m="hero"] > div:last-child{padding-top:56px !important;padding-bottom:48px !important}
+      [data-m="hero"] h1{font-size:28px !important}
+      [data-m="hero-tagline"]{font-size:19px !important;margin:12px 0 16px !important}
+      [data-m="hero"] p{font-size:15px !important;line-height:1.6 !important}
+      [data-m="hero-eyebrow"]{margin-bottom:14px !important}
+      [data-m="hero-cta"]{margin-top:24px !important}
+
+      /* Compact, space-efficient lists on mobile */
+      div[data-m="tiles"]{grid-template-columns:1fr 1fr !important;gap:10px !important;margin-top:28px !important}
+      div[data-m="tiles"] > *{padding:14px !important;gap:8px !important;flex-direction:column !important;align-items:flex-start !important}
+      div[data-m="tiles"] h3{font-size:14.5px !important;margin:0 0 3px !important;line-height:1.25 !important}
+      div[data-m="tiles"] p{font-size:12px !important;line-height:1.45 !important}
+      div[data-m="tiles"] > * > span:first-child{width:32px !important;height:32px !important}
+      div[data-m="tiles"] svg{width:16px !important;height:16px !important}
+
+      /* Sectors: tight two-up chips, icon above label */
+      div[data-m="chips"]{grid-template-columns:1fr 1fr !important;gap:8px !important;margin-top:26px !important}
+      div[data-m="chips"] > *{flex-direction:column !important;align-items:flex-start !important;gap:8px !important;padding:14px 12px !important}
+      div[data-m="chips"] > * > span:first-child{width:30px !important;height:30px !important}
+      div[data-m="chips"] svg{width:15px !important;height:15px !important}
+      div[data-m="chips"] > * > span:last-child{font-size:14px !important;line-height:1.25 !important}
+
+      div[data-m="tiles-media"]{grid-template-columns:1fr 1fr !important;gap:12px !important;margin-top:28px !important}
+      /* Stats: 2x2 compact, not a tall stack */
+      div[data-m="stats"]{grid-template-columns:1fr 1fr !important;gap:14px 10px !important}
+      div[data-m="stats"] > *{padding:0 !important}
+      section:has(> div > div[data-m="stats"]) > div{padding-top:36px !important;padding-bottom:32px !important}
+      div[data-m="stats"] + div{margin:26px 0 20px !important}
+      [data-m="stats"] div[style*="font-family: var(--font-display)"],[data-m="stats"] [class*="stat"]{font-size:30px !important;line-height:1.1 !important}
+      [data-m="stats"] *{font-size:inherit}
+      [data-m="stats"] > div > div > div:first-child{font-size:30px !important;line-height:1.1 !important}
+      [data-m="stats"] > div > div > div:last-child{font-size:12px !important;line-height:1.35 !important;margin-top:2px !important}
+
+      /* Accreditations: even horizontal grid */
+      div[data-m="credrow"]{display:grid !important;grid-template-columns:1fr 1fr !important;gap:10px 14px !important;justify-items:start !important}
+      [data-m="credrow"] > span:first-child{grid-column:1 / -1 !important;justify-self:center !important;font-size:11px !important;letter-spacing:1.2px !important}
+      [data-m="credrow"] span{font-size:12px !important;line-height:1.3 !important;align-items:flex-start !important;gap:7px !important}
+      [data-m="credrow"] svg{width:15px !important;height:15px !important;flex:0 0 auto !important;margin-top:1px !important}
+
+      /* Find us / Call us stay side by side */
+      [data-m="infobar"]{gap:16px !important;flex-wrap:nowrap !important;padding:16px 20px !important;align-items:flex-start !important}
+      [data-m="infobar-item"]{flex:1 1 0 !important;gap:8px !important;align-items:flex-start !important;min-width:0 !important}
+      [data-m="infobar-item"] svg{width:18px !important;height:18px !important;flex:0 0 auto !important}
+      [data-m="infobar-item"] div div:first-child{font-size:11.5px !important}
+      [data-m="infobar-item"] div div:last-child{font-size:11.5px !important;line-height:1.4 !important}
+
+      /* About the firm: portrait leads, copy follows */
+      [data-m="portrait"]{order:-1 !important;min-height:340px !important}
+      [data-m="portrait-inner"]{min-height:340px !important}
+    }
+    @media (max-width:520px){
+      h1{font-size:29px !important}
+      [data-m="hero"] h1{font-size:26px !important}
+      [data-m="portrait"],[data-m="portrait-inner"]{min-height:300px !important}
+      h2{font-size:22px !important}
+      a[href^="https://wa.me"]{gap:0 !important;padding:14px !important;font-size:0 !important;border-radius:var(--radius-full) !important}
+    }
+  </style>
+</helmet>
+<div style="font-family:var(--font-sans);color:var(--ink-900);background:var(--white)">
+
+  <header style="{{ headerStyle }}">
+    <div style="max-width:var(--container-wide);margin:0 auto;padding:0 40px;height:88px;display:flex;align-items:center;gap:32px">
+      <a onClick="{{ nav.home }}" style="cursor:pointer;display:flex;align-items:center">
+        <img src="assets/logo-transparent.png" alt="Ong'ato, Ochieng' & Co. Advocates" style="height:52px;display:block" />
+      </a>
+      <nav style="display:flex;gap:4px;margin-left:auto;align-items:center">
+        <sc-for list="{{ NAV }}" as="item" hint-placeholder-count="4">
+          <button onClick="{{ item.onClick }}" style="{{ item.style }}" style-hover="{{ item.hover }}">{{ item.label }}</button>
+        </sc-for>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ================= HOME ================= -->
+    <div style="{{ homeStyle }}">
+      <section data-m="hero" style="position:relative;background:#141a17;color:#fff;min-height:640px;display:flex;align-items:center;overflow:hidden">
+        <div style="position:absolute;inset:0"><img src="assets/hero-chambers.png" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center 55%;display:block" /></div>
+        <div style="{{ heroOverlayStyle }}"></div>
+        <div style="position:relative;max-width:980px;margin:0 auto;padding:150px 40px 96px;text-align:center;animation:ooc-rise .5s var(--ease-out,ease) both">
+          <div data-m="hero-eyebrow" style="font-family:var(--font-sans);font-size:12px;letter-spacing:1.8px;text-transform:uppercase;color:var(--gold-400);font-weight:600;margin-bottom:22px">Advocates &amp; Legal Counsel · Nairobi</div>
+          <h1 style="font-family:var(--font-display);font-weight:700;font-size:56px;line-height:1.08;color:var(--gold-500);margin:0;letter-spacing:-0.3px">Ong'ato, Ochieng' &amp; Company Advocates</h1>
+          <div data-m="hero-tagline" style="font-family:var(--font-display);font-style:italic;font-size:32px;margin:16px 0 24px;color:#fff">Right By Your Side Always</div>
+          <p style="font-size:19px;line-height:1.7;max-width:780px;margin:0 auto;color:rgba(255,255,255,.9);text-wrap:pretty">Our litigation practice covers corporate, criminal and civil litigation, alternative dispute resolution, estate and trusts, immigration, labor &amp; employment, elections, administrative regulation, personal injury, conveyancing and real estate.</p>
+          <div data-m="hero-cta" style="display:flex;gap:14px;justify-content:center;margin-top:34px;flex-wrap:wrap">
+            <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Button" variant="primary" size="lg" onClick="{{ nav.contact }}" hint-size="auto,52px">Let's Talk <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:rgba(0,0,0,.16)"><i data-lucide="arrow-up-right" style="width:15px;height:15px"></i></span></x-import>
+            <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Button" variant="ondark" size="lg" onClick="{{ nav.about }}" hint-size="auto,52px">About The Firm</x-import>
+          </div>
+        </div>
+      </section>
+
+      <sc-if value="{{ showInfoBar }}" hint-placeholder-val="{{ yes }}">
+        <section style="background:var(--green-600);color:#fff">
+          <div data-m="infobar" style="max-width:var(--container-wide);margin:0 auto;padding:24px 40px;display:flex;gap:64px;flex-wrap:wrap;align-items:center;justify-content:center">
+            <div data-m="infobar-item" style="display:flex;gap:14px;align-items:center">
+              <i data-lucide="map-pin" style="width:26px;height:26px;color:var(--gold-400)"></i>
+              <div><div style="font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.6px">Find Us</div><div style="font-size:14px;color:rgba(255,255,255,.86)">Kims House, Suite No.4 Kijabe Street, Near K24 Studios, Nairobi.</div></div>
+            </div>
+            <div data-m="infobar-item" style="display:flex;gap:14px;align-items:center">
+              <i data-lucide="phone" style="width:26px;height:26px;color:var(--gold-400)"></i>
+              <div><div style="font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.6px">Call Us</div><div style="font-size:14px;color:rgba(255,255,255,.86)">+254 (0) 710273649 · +254 (0) 780030740</div></div>
+            </div>
+          </div>
+        </section>
+      </sc-if>
+
+      <!-- ABOUT THE FIRM -->
+      <section style="background:#fff">
+        <div style="max-width:var(--container-max);margin:0 auto;padding:96px 40px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center">
+          <div>
+            <div style="display:flex;align-items:center;gap:10px;color:var(--gold-600);font-size:12px;letter-spacing:1.8px;text-transform:uppercase;font-weight:600"><span style="color:var(--gold-500)">&#9666;&#9666;</span>About The Firm<span style="color:var(--gold-500)">&#9656;&#9656;</span></div>
+            <h2 style="font-family:var(--font-display);font-weight:600;font-size:40px;line-height:1.1;margin:18px 0 0;letter-spacing:-0.3px;color:var(--ink-900);max-width:440px;text-wrap:pretty">Trusted counsel, right by your side</h2>
+            <p style="font-size:18px;line-height:1.6;color:var(--ink-700);margin:20px 0 0;max-width:460px">Where expertise meets dedication in guiding individuals and businesses through today's complex legal and regulatory landscape.</p>
+            <p style="font-size:15.5px;line-height:1.7;color:var(--ink-600);margin:18px 0 0;max-width:480px">We are a rapidly growing full-service law firm in Kenya. Our litigation practice covers corporate, criminal and civil litigation, alternative dispute resolution, estate and trusts, immigration, labour &amp; employment, conveyancing and real estate — advising clients across agribusiness, banking, energy, financial services, and beyond.</p>
+            <div style="margin-top:28px"><x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Button" variant="primary" onClick="{{ nav.about }}" hint-size="auto,44px">See Profile <span style="display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:rgba(0,0,0,.16)"><i data-lucide="arrow-up-right" style="width:14px;height:14px"></i></span></x-import></div>
+          </div>
+          <div data-m="portrait" style="position:relative;display:flex;justify-content:center;align-items:center;min-height:440px">
+            <div data-m="portrait-inner" style="position:relative;width:100%;height:100%;min-height:440px;border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow-md)"><img src="assets/managing-partner.png" alt="Managing partner at his desk" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block" /></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CREDENTIALS + BY THE NUMBERS -->
+      <section style="background:var(--green-800);color:var(--color-text-on-dark)">
+        <div style="max-width:var(--container-max);margin:0 auto;padding:76px 40px">
+          <div data-m="stats" style="display:grid;grid-template-columns:repeat(4,1fr);gap:32px">
+            <sc-for list="{{ STATS }}" as="s" hint-placeholder-count="4">
+              <div style="text-align:center;position:relative">
+                <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.StatBlock" value="{{ s.value }}" label="{{ s.label }}" tone="dark" align="center" hint-size="100%,90px"></x-import>
+              </div>
+            </sc-for>
+          </div>
+          <div style="height:1px;background:rgba(255,255,255,.14);margin:52px 0 34px"></div>
+          <div data-m="credrow" style="display:flex;align-items:center;justify-content:center;gap:14px 44px;flex-wrap:wrap">
+            <span style="font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:var(--gold-400);font-weight:600">Accredited &amp; Recognised</span>
+            <sc-for list="{{ CREDS }}" as="c" hint-placeholder-count="4">
+              <span style="display:inline-flex;align-items:center;gap:10px;color:rgba(255,255,255,.82);font-size:14.5px;font-weight:500"><i data-lucide="{{ c.icon }}" style="width:19px;height:19px;color:var(--gold-400)"></i>{{ c.label }}</span>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <!-- WHY CHOOSE US -->
+      <section style="position:relative;background:#12140f;color:#fff;overflow:hidden">
+        <div style="position:absolute;inset:0;opacity:.26"><image-slot id="why-bg" shape="rect" placeholder="Drop dark library / corridor image"></image-slot></div>
+        <div style="position:absolute;inset:0;background:rgba(12,14,10,.62);pointer-events:none"></div>
+        <div style="position:relative;max-width:var(--container-max);margin:0 auto;padding:96px 40px">
+          <div style="text-align:center;display:flex;flex-direction:column;align-items:center">
+            <i data-lucide="scale" style="width:28px;height:28px;color:var(--gold-500)"></i>
+            <h2 style="font-family:var(--font-display);font-weight:600;font-size:40px;margin:14px 0 12px;letter-spacing:-0.2px">Why Choose Us</h2>
+            <span style="width:64px;height:3px;background:var(--green-500)"></span>
+            <p style="font-size:16px;color:rgba(255,255,255,.78);margin-top:22px;max-width:640px">OOC Advocates aims to provide the best legal options for you and/or your business.</p>
+          </div>
+          <div data-m="tiles" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:48px">
+            <sc-for list="{{ WHY }}" as="w" hint-placeholder-count="4">
+              <div style="display:flex;gap:18px;padding:26px;border:1px solid rgba(255,255,255,.12);border-radius:var(--radius-lg);background:rgba(0,0,0,.25)">
+                <span style="width:54px;height:54px;flex:0 0 auto;border-radius:var(--radius-md);background:var(--gold-500);display:inline-flex;align-items:center;justify-content:center"><i data-lucide="{{ w.icon }}" style="width:26px;height:26px;color:var(--ink-900)"></i></span>
+                <div><h3 style="font-family:var(--font-display);font-weight:600;font-size:23px;margin:2px 0 6px">{{ w.title }}</h3><p style="font-size:14.5px;line-height:1.55;color:rgba(255,255,255,.78);margin:0">{{ w.desc }}</p></div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <!-- OUR PRACTICE AREAS (cards) -->
+      <section style="background:#fff">
+        <div style="max-width:var(--container-max);margin:0 auto;padding:96px 40px">
+          <div style="text-align:center">
+            <div style="display:inline-flex;align-items:center;gap:10px;color:var(--gold-600);font-size:12px;letter-spacing:1.8px;text-transform:uppercase;font-weight:600"><span style="color:var(--gold-500)">&#9666;&#9666;</span>Our Expertise<span style="color:var(--gold-500)">&#9656;&#9656;</span></div>
+            <h2 style="font-family:var(--font-display);font-weight:600;font-size:40px;margin:16px 0 6px;letter-spacing:-0.2px;color:var(--ink-900)">Our Practice Areas</h2>
+            <p style="font-size:15px;color:var(--ink-500);margin:0">Navigate our expertise across the matters that shape our clients.</p>
+          </div>
+          <div data-m="tiles" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px">
+            <sc-for list="{{ PRACTICE }}" as="a" hint-placeholder-count="6">
+              <div style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:28px;display:flex;flex-direction:column">
+                <span style="width:40px;height:3px;background:var(--gold-500);border-radius:2px"></span>
+                <h3 style="font-family:var(--font-display);font-weight:600;font-size:23px;color:var(--ink-900);margin:20px 0 10px">{{ a.title }}</h3>
+                <p style="font-size:14.5px;line-height:1.65;color:var(--ink-600);margin:0 0 18px;flex:1">{{ a.desc }}</p>
+                <a onClick="{{ nav.about }}" style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;color:var(--ink-900);font-weight:700;font-size:13.5px;letter-spacing:.2px">Read More <i data-lucide="arrow-up-right" style="width:15px;height:15px;color:var(--gold-600)"></i></a>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTORS WE ADVISE -->
+      <section style="background:var(--ink-50)">
+        <div style="max-width:var(--container-max);margin:0 auto;padding:96px 40px">
+          <div style="text-align:center">
+            <div style="display:inline-flex;align-items:center;gap:10px;color:var(--gold-600);font-size:12px;letter-spacing:1.8px;text-transform:uppercase;font-weight:600"><span style="color:var(--gold-500)">&#9666;&#9666;</span>Who We Serve<span style="color:var(--gold-500)">&#9656;&#9656;</span></div>
+            <h2 style="font-family:var(--font-display);font-weight:600;font-size:40px;margin:16px 0 6px;letter-spacing:-0.2px;color:var(--ink-900)">Sectors we advise</h2>
+            <p style="font-size:15.5px;line-height:1.6;color:var(--ink-500);margin:0 auto;max-width:600px">Trusted counsel to investors and enterprises across the industries shaping Kenya and the wider region.</p>
+          </div>
+          <div data-m="chips" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px">
+            <sc-for list="{{ SECTORS }}" as="s" hint-placeholder-count="9">
+              <div style="display:flex;align-items:center;gap:16px;padding:22px 24px;border:1px solid var(--color-border);border-radius:var(--radius-lg);background:var(--white);transition:box-shadow .18s ease,border-color .18s ease" style-hover="{{ sectorHover }}">
+                <span style="width:44px;height:44px;flex:0 0 auto;border-radius:var(--radius-md);background:var(--gold-50);display:inline-flex;align-items:center;justify-content:center"><i data-lucide="{{ s.icon }}" style="width:21px;height:21px;color:var(--gold-600)"></i></span>
+                <span style="font-family:var(--font-display);font-weight:600;font-size:19px;color:var(--ink-900)">{{ s.label }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <!-- MEET THE LAWYERS -->
+      <section style="background:#fff">
+        <div style="max-width:var(--container-max);margin:0 auto;padding:96px 40px">
+          <div style="text-align:center;display:flex;flex-direction:column;align-items:center;color:var(--ink-900)">
+            <i data-lucide="users" style="width:28px;height:28px;color:var(--gold-500)"></i>
+            <h2 style="font-family:var(--font-display);font-weight:600;font-size:40px;margin:14px 0 12px;letter-spacing:-0.2px">Meet The Lawyers</h2>
+            <span style="width:64px;height:3px;background:var(--green-500)"></span>
+            <p style="font-size:16px;color:var(--ink-500);margin-top:22px">They are appreciably experienced in the legal matters handled at the firm.</p>
+          </div>
+          <div data-m="tiles-media" style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:48px">
+            <sc-for list="{{ PARTNERS }}" as="p" hint-placeholder-count="4">
+              <div style="border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-sm);border:1px solid var(--color-border)">
+                <div data-m="media-sm" style="height:290px;background:var(--ink-100)"><image-slot id="{{ p.slot }}" shape="rect" placeholder="Drop portrait"></image-slot></div>
+                <div style="background:var(--gold-500);padding:16px 18px;text-align:center">
+                  <div style="font-family:var(--font-display);font-weight:600;font-size:18px;color:var(--ink-900);line-height:1.2">{{ p.name }}</div>
+                  <div style="font-size:13px;color:var(--gold-800);margin-top:4px;font-weight:600">{{ p.role }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <!-- CLIENT-FOCUSED SOLUTIONS -->
+      <section style="position:relative;background:var(--ink-50);overflow:hidden">
+        <div style="max-width:var(--container-max);margin:0 auto;padding:0 40px;display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;min-height:460px">
+          <div style="position:relative;padding:80px 0">
+            <div style="position:absolute;left:-6px;top:104px;transform:rotate(-90deg);transform-origin:left;color:var(--gold-600);font-size:12px;letter-spacing:1.8px;text-transform:uppercase;font-weight:600;white-space:nowrap;display:flex;align-items:center;gap:10px">Industry Leaders <span style="width:24px;height:1.5px;background:var(--gold-500);display:inline-block"></span></div>
+            <div style="padding-left:56px">
+              <h2 style="font-family:var(--font-display);font-weight:600;font-size:56px;line-height:1.02;margin:0;letter-spacing:-0.5px"><span style="display:block;color:var(--green-800)">Client</span><span style="display:block;color:var(--green-800)">Focused</span><span style="display:block;color:var(--gold-500)">Solutions</span></h2>
+              <p style="font-size:16px;line-height:1.7;color:var(--ink-600);margin:26px 0 0;max-width:420px">We highlight our insights and expertise to illustrate how our comprehensive legal solutions have helped clients across many industries.</p>
+            </div>
+          </div>
+          <div data-m="portrait" style="position:relative;align-self:stretch;min-height:460px">
+            <div style="position:absolute;inset:0;filter:grayscale(1) contrast(1.05)"><img src="assets/about-advocate.png" alt="Advocate at work in chambers" style="width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block" /></div>
+            <div style="position:absolute;inset:0;background:linear-gradient(90deg, var(--ink-50), rgba(246,247,244,0) 32%);pointer-events:none"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BLOG TEASERS -->
+      <section style="background:#fff">
+        <div style="max-width:var(--container-max);margin:0 auto;padding:96px 40px">
+          <div style="text-align:center;display:flex;flex-direction:column;align-items:center;color:var(--ink-900)">
+            <i data-lucide="newspaper" style="width:28px;height:28px;color:var(--gold-500)"></i>
+            <h2 style="font-family:var(--font-display);font-weight:600;font-size:36px;margin:14px 0 12px;letter-spacing:-0.2px;max-width:760px;text-wrap:pretty">Stay Up-To-Date With The Trending Legal Issues</h2>
+            <span style="width:64px;height:3px;background:var(--green-500)"></span>
+            <p style="font-size:16px;color:var(--ink-500);margin-top:22px">We ensure that you are up to date with all matters law. Stay informed from our blogs.</p>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:48px">
+            <sc-for list="{{ POSTS }}" as="post" hint-placeholder-count="3">
+              <article>
+                <div style="height:200px;border-radius:var(--radius-lg);overflow:hidden;background:var(--ink-100);margin-bottom:18px;box-shadow:var(--shadow-sm)"><image-slot id="{{ post.img }}" shape="rect" placeholder="Drop article image"></image-slot></div>
+                <h3 style="font-family:var(--font-display);font-weight:600;font-size:21px;line-height:1.3;color:var(--ink-900);margin:0 0 12px;text-wrap:pretty">{{ post.title }}</h3>
+                <div style="display:flex;align-items:center;gap:8px;color:var(--gold-700);font-size:13px;margin-bottom:12px"><i data-lucide="calendar" style="width:15px;height:15px"></i>{{ post.date }}</div>
+                <p style="font-size:14px;line-height:1.65;color:var(--ink-600);margin:0 0 14px">{{ post.excerpt }}</p>
+                <a onClick="{{ post.onOpen }}" style="cursor:pointer;display:inline-flex;align-items:center;gap:7px;color:var(--green-700);font-weight:600;font-size:14px">Read More <i data-lucide="arrow-right" style="width:16px;height:16px"></i></a>
+              </article>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <!-- WHAT WE OFFER -->
+      <section style="position:relative;background:#12140f;color:#fff;overflow:hidden">
+        <div style="position:absolute;inset:0;opacity:.22"><image-slot id="offer-bg" shape="rect" placeholder="Drop dark corridor image"></image-slot></div>
+        <div style="position:absolute;inset:0;background:rgba(12,14,10,.64);pointer-events:none"></div>
+        <div style="position:relative;max-width:var(--container-max);margin:0 auto;padding:96px 40px">
+          <div style="text-align:center;display:flex;flex-direction:column;align-items:center">
+            <i data-lucide="briefcase" style="width:28px;height:28px;color:var(--gold-500)"></i>
+            <h2 style="font-family:var(--font-display);font-weight:600;font-size:40px;margin:14px 0 12px;letter-spacing:-0.2px">What We Offer</h2>
+            <span style="width:64px;height:3px;background:var(--green-500)"></span>
+            <p style="font-size:16px;color:rgba(255,255,255,.78);margin-top:22px;max-width:680px;text-wrap:pretty">We take pride in advocating and practicing dynamic lawyering — prompt, proactive, and result-oriented.</p>
+          </div>
+          <div data-m="tiles" style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:44px">
+            <sc-for list="{{ OFFER }}" as="o" hint-placeholder-count="7">
+              <div style="display:flex;gap:14px;align-items:flex-start;padding:20px;border:1px solid rgba(255,255,255,.12);border-radius:var(--radius-lg)">
+                <span style="width:46px;height:46px;flex:0 0 auto;border-radius:var(--radius-md);background:rgba(0,122,64,.16);border:1px solid var(--green-400);display:inline-flex;align-items:center;justify-content:center"><i data-lucide="{{ o.icon }}" style="width:22px;height:22px;color:var(--green-300)"></i></span>
+                <span style="font-size:15px;font-weight:600;line-height:1.35">{{ o.title }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <!-- OUR GROWTH -->
+      <section style="background:#fff">
+        <div style="max-width:var(--container-max);margin:0 auto;padding:96px 40px;display:grid;grid-template-columns:1fr 1.1fr;gap:56px;align-items:center">
+          <div data-m="media" style="height:400px;border-radius:var(--radius-lg);overflow:hidden;background:var(--ink-100)"><image-slot id="growth-img" shape="rect" placeholder="Drop image — statue / library"></image-slot></div>
+          <div>
+            <i data-lucide="trending-up" style="width:28px;height:28px;color:var(--gold-500)"></i>
+            <h2 style="font-family:var(--font-display);font-weight:600;font-size:40px;margin:14px 0 12px;letter-spacing:-0.2px">Our Growth</h2>
+            <span style="display:block;width:64px;height:3px;background:var(--green-500)"></span>
+            <p style="font-size:16.5px;line-height:1.75;color:var(--ink-600);margin-top:24px;text-wrap:pretty">OOC Advocates is a rapidly growing full service law firm in Kenya. We take pride in advocating and practicing dynamic lawyering — prompt, proactive, and result-oriented. We offer depth and range in experience and resources and a professional, collaborative work ethic — qualities that clients appreciate in an emerging and challenging market like Kenya.</p>
+            <div style="margin-top:28px"><x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Button" variant="secondary" size="lg" onClick="{{ nav.contact }}" hint-size="auto,52px">Work With Us</x-import></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TESTIMONIAL -->
+      <section style="position:relative;background:#12140f;color:#fff;overflow:hidden">
+        <div style="position:absolute;inset:0;opacity:.3"><image-slot id="testi-bg" shape="rect" placeholder="Drop bookshelf image"></image-slot></div>
+        <div style="position:absolute;inset:0;background:rgba(12,14,10,.68);pointer-events:none"></div>
+        <div style="position:relative;max-width:900px;margin:0 auto;padding:96px 40px;text-align:center">
+          <div style="font-family:var(--font-display);font-size:90px;line-height:.6;color:var(--gold-500)">&ldquo;</div>
+          <h2 style="font-family:var(--font-display);font-weight:600;font-size:34px;margin:0 0 28px">Testimonials</h2>
+          <p style="font-family:var(--font-display);font-style:italic;font-size:26px;line-height:1.5;color:rgba(255,255,255,.94);margin:0 auto;max-width:720px;text-wrap:pretty">A dedicated, reliable partner, delivering with top notch skills and pin-point accuracy even with limited resources.</p>
+          <div style="margin-top:24px">
+            <div style="font-weight:700;font-size:17px;color:var(--gold-400)">David Nyawade</div>
+            <div style="font-size:14px;color:rgba(255,255,255,.72)">Managing Director, Somar Systems Limited</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- LET'S GET IN TOUCH -->
+      <section style="background:#fff">
+        <div style="max-width:720px;margin:0 auto;padding:96px 40px;text-align:center">
+          <div style="display:inline-flex;align-items:center;gap:10px;color:var(--gold-600);font-size:12px;letter-spacing:1.8px;text-transform:uppercase;font-weight:600"><span style="color:var(--gold-500)">&#9666;&#9666;</span>Contact Us<span style="color:var(--gold-500)">&#9656;&#9656;</span></div>
+          <h2 style="font-family:var(--font-display);font-weight:600;font-size:44px;margin:16px 0 10px;letter-spacing:-0.3px;color:var(--ink-900)">Let's get in touch</h2>
+          <p style="font-size:17px;line-height:1.6;color:var(--ink-500);margin:0 0 30px">Need legal advice or have questions? We are here to help you — in strict confidence.</p>
+          <div style="display:flex;justify-content:center"><x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Button" variant="primary" size="lg" onClick="{{ nav.contact }}" hint-size="auto,52px">Contact Us <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:rgba(0,0,0,.16)"><i data-lucide="arrow-up-right" style="width:15px;height:15px"></i></span></x-import></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ================= ABOUT US ================= -->
+    <div style="{{ aboutStyle }}">
+      <section style="background:var(--green-800);color:var(--color-text-on-dark)">
+        <div style="max-width:var(--container-max);margin:0 auto;padding:80px 40px">
+          <div style="font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:var(--gold-400);font-weight:600">The Firm</div>
+          <h1 style="font-family:var(--font-display);font-weight:600;font-size:52px;margin:18px 0 0;letter-spacing:-0.3px">About Us</h1>
+          <p style="font-size:18px;line-height:1.6;color:var(--color-text-on-dark-muted);max-width:640px;margin-top:14px">A rapidly growing, full-service Kenyan law firm — right by your side, always.</p>
+        </div>
+      </section>
+
+      <section style="background:#fff">
+        <div style="max-width:var(--container-text);margin:0 auto;padding:80px 40px 24px;text-align:center">
+          <div style="display:inline-flex;align-items:center;gap:10px;color:var(--gold-600);font-size:12px;letter-spacing:1.8px;text-transform:uppercase;font-weight:600"><span style="color:var(--gold-500)">&#9666;&#9666;</span>Who We Are<span style="color:var(--gold-500)">&#9656;&#9656;</span></div>
+          <h2 style="font-family:var(--font-display);font-weight:600;font-size:38px;margin:16px 0 0;letter-spacing:-0.3px;color:var(--ink-900);text-wrap:pretty">Where expertise meets dedication</h2>
+          <p style="font-size:18px;line-height:1.75;color:var(--ink-700);margin:22px 0 0">We are a Kenyan corporate and commercial law firm guiding individuals and businesses through today's complex legal and regulatory landscape. Our litigation practice covers corporate, criminal and civil litigation, alternative dispute resolution, estate and trusts, immigration, labour &amp; employment, conveyancing and real estate.</p>
+          <p style="font-size:16px;line-height:1.75;color:var(--ink-600);margin:18px 0 0">We advise investors and investees across agribusiness, banking, energy, financial services, fintech, insurance, manufacturing, and telecommunications — in Kenya and across the region. We take pride in dynamic lawyering that is prompt, proactive, and result-oriented, delivered with a professional, collaborative work ethic.</p>
+        </div>
+        <div style="max-width:var(--container-max);margin:0 auto;padding:56px 40px 16px">
+          <figure style="margin:0">
+            <div style="border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-md);background:var(--ink-100)">
+              <img src="assets/chambers-meeting.png" alt="A senior partner reviewing a document with a colleague in the firm's Nairobi chambers" style="display:block;width:100%;height:520px;object-fit:cover;object-position:center 40%" />
+            </div>
+            <figcaption style="display:flex;align-items:center;gap:12px;margin-top:16px;font-size:13.5px;color:var(--ink-500)">
+              <span style="width:28px;height:2px;background:var(--gold-500);flex:0 0 auto"></span>
+              Counsel at work — reviewing instructions in the firm's chambers on Kijabe Street, Nairobi.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section style="max-width:var(--container-max);margin:0 auto;padding:64px 40px 96px">
+        <div style="text-align:center;margin-bottom:44px">
+          <div style="display:inline-flex;align-items:center;gap:10px;color:var(--gold-600);font-size:12px;letter-spacing:1.8px;text-transform:uppercase;font-weight:600"><span style="color:var(--gold-500)">&#9666;&#9666;</span>The Team<span style="color:var(--gold-500)">&#9656;&#9656;</span></div>
+          <h2 style="font-family:var(--font-display);font-weight:600;font-size:40px;margin:16px 0 6px;letter-spacing:-0.2px;color:var(--ink-900)">The Partners</h2>
+          <p style="font-size:15.5px;color:var(--ink-500);margin:0 auto;max-width:600px">Partners and consultants who bring rigour, discretion, and genuine care to every matter handled at the firm.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+          <sc-for list="{{ PARTNERS }}" as="p" hint-placeholder-count="4">
+            <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Card" interactive="{{ yes }}" hint-size="100%,180px">
+              <div style="display:flex;gap:22px;padding:8px">
+                <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Avatar" name="{{ p.name }}" ring="{{ yes }}" size="xl" hint-size="72px,72px"></x-import>
+                <div>
+                  <h3 style="font-family:var(--font-display);font-weight:600;font-size:23px;margin:0;color:var(--ink-900)">{{ p.name }}</h3>
+                  <div style="color:var(--gold-700);font-weight:600;font-size:14px;margin:4px 0 12px;letter-spacing:.3px">{{ p.role }}</div>
+                  <p style="font-size:14.5px;line-height:1.6;color:var(--ink-600);margin:0">{{ p.bio }}</p>
+                  <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+                    <sc-for list="{{ p.tags }}" as="t" hint-placeholder-count="2">
+                      <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Badge" tone="green" hint-size="auto,24px">{{ t }}</x-import>
+                    </sc-for>
+                  </div>
+                </div>
+              </div>
+            </x-import>
+          </sc-for>
+        </div>
+        <div style="margin-top:48px;text-align:center;padding:48px;background:var(--ink-50);border-radius:var(--radius-xl)">
+          <h3 style="font-family:var(--font-display);font-weight:600;font-size:28px;color:var(--ink-900);margin:0">Not sure where your matter fits?</h3>
+          <p style="font-size:16px;color:var(--ink-600);margin:10px 0 22px">Tell us what you are facing and we will direct you to the right advocate.</p>
+          <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Button" variant="primary" size="lg" onClick="{{ nav.contact }}" hint-size="auto,52px">Request a Consultation</x-import>
+        </div>
+      </section>
+    </div>
+
+    <!-- ================= CONTACT ================= -->
+    <div style="{{ contactStyle }}">
+      <section style="background:var(--green-800);color:var(--color-text-on-dark)">
+        <div style="max-width:var(--container-max);margin:0 auto;padding:80px 40px">
+          <div style="font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:var(--gold-400);font-weight:600">Get in Touch</div>
+          <h1 style="font-family:var(--font-display);font-weight:600;font-size:52px;margin:18px 0 0;letter-spacing:-0.3px">Contact Us</h1>
+          <p style="font-size:18px;line-height:1.6;color:var(--color-text-on-dark-muted);max-width:640px;margin-top:14px">Tell us about your matter. We treat every enquiry in strict confidence and respond within one business day.</p>
+        </div>
+      </section>
+      <section style="max-width:var(--container-max);margin:0 auto;padding:72px 40px 96px;display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:start">
+        <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Card" hint-size="100%,520px">
+          <div style="padding:12px">
+            <div style="{{ formStyle }}">
+              <div style="display:flex;flex-direction:column;gap:20px">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+                  <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.FieldLabel" label="Full name" required="{{ yes }}" htmlFor="n" hint-size="100%,64px"><x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Input" id="n" placeholder="Jane Wanjiru" hint-size="100%,44px"></x-import></x-import>
+                  <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.FieldLabel" label="Phone" required="{{ yes }}" htmlFor="p" hint-size="100%,64px"><x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Input" id="p" placeholder="+254 7…" hint-size="100%,44px"></x-import></x-import>
+                </div>
+                <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.FieldLabel" label="Email" htmlFor="e" hint-size="100%,64px"><x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Input" id="e" placeholder="you@email.com" hint-size="100%,44px"></x-import></x-import>
+                <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.FieldLabel" label="Matter type" htmlFor="m" hint-size="100%,64px">
+                  <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Select" id="m" hint-size="100%,44px">
+                    <option>Commercial &amp; corporate</option><option>Land &amp; conveyancing</option><option>Family law</option><option>Dispute resolution</option><option>Other</option>
+                  </x-import>
+                </x-import>
+                <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.FieldLabel" label="How can we help?" htmlFor="msg" hint-size="100%,120px"><x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Textarea" id="msg" rows="5" placeholder="Briefly describe your matter…" hint-size="100%,120px"></x-import></x-import>
+                <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Checkbox" label="I understand this enquiry does not create an advocate–client relationship." defaultChecked="{{ yes }}" hint-size="100%,24px"></x-import>
+                <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Button" variant="primary" size="lg" onClick="{{ submit }}" hint-size="auto,52px">Submit Enquiry</x-import>
+              </div>
+            </div>
+            <div style="{{ sentStyle }}">
+              <div style="text-align:center;padding:48px 20px">
+                <span style="width:64px;height:64px;border-radius:50%;background:var(--green-50);display:inline-flex;align-items:center;justify-content:center"><i data-lucide="check" style="width:30px;height:30px;color:var(--green-600)"></i></span>
+                <h3 style="font-family:var(--font-display);font-weight:600;font-size:26px;color:var(--ink-900);margin:18px 0 8px">Thank you.</h3>
+                <p style="color:var(--ink-600);margin:0 0 22px">Your enquiry has been received. An advocate will be in touch within one business day.</p>
+                <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Button" variant="outline" onClick="{{ reset }}" hint-size="auto,44px">Send another enquiry</x-import>
+              </div>
+            </div>
+          </div>
+        </x-import>
+        <div style="display:flex;flex-direction:column;gap:20px">
+          <sc-for list="{{ CONTACTS }}" as="c" hint-placeholder-count="4">
+            <div style="display:flex;gap:16px">
+              <span style="width:46px;height:46px;border-radius:var(--radius-lg);background:var(--gold-100);display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto"><i data-lucide="{{ c.icon }}" style="width:21px;height:21px;color:var(--gold-700)"></i></span>
+              <div>
+                <div style="font-weight:600;color:var(--ink-900);font-size:16px">{{ c.title }}</div>
+                <div style="color:var(--ink-600);font-size:14.5px;line-height:1.55;white-space:pre-line;margin-top:3px">{{ c.body }}</div>
+              </div>
+            </div>
+          </sc-for>
+          <div style="height:180px;border-radius:var(--radius-lg);background:var(--green-700);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center">
+            <i data-lucide="map" style="width:34px;height:34px;color:rgba(255,255,255,.5)"></i>
+            <span style="position:absolute;bottom:12px;left:14px;font-size:12px;color:var(--color-text-on-dark-muted)">Map — Kijabe Street, Nairobi</span>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ================= BLOG ================= -->
+    <div style="{{ blogStyle }}">
+      <section style="background:var(--green-800);color:var(--color-text-on-dark)">
+        <div style="max-width:var(--container-max);margin:0 auto;padding:80px 40px">
+          <div style="font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:var(--gold-400);font-weight:600">Insights</div>
+          <h1 style="font-family:var(--font-display);font-weight:600;font-size:52px;margin:18px 0 0;letter-spacing:-0.3px">Our Blog</h1>
+          <p style="font-size:18px;line-height:1.6;color:var(--color-text-on-dark-muted);max-width:640px;margin-top:14px">Trending legal issues, case notes, and firm commentary — so you stay up to date with all matters law.</p>
+        </div>
+      </section>
+      <section style="max-width:var(--container-text);margin:0 auto;padding:72px 40px 96px">
+        <div style="display:flex;flex-direction:column;gap:36px">
+          <sc-for list="{{ POSTS }}" as="post" hint-placeholder-count="3">
+            <article style="border-bottom:1px solid var(--color-border);padding-bottom:36px">
+              <div style="display:flex;align-items:center;gap:8px;color:var(--gold-700);font-size:13px;margin-bottom:10px"><i data-lucide="calendar" style="width:15px;height:15px"></i>{{ post.date }}</div>
+              <h2 style="font-family:var(--font-display);font-weight:600;font-size:28px;line-height:1.25;color:var(--ink-900);margin:0 0 14px;text-wrap:pretty">{{ post.title }}</h2>
+              <p style="font-size:16px;line-height:1.7;color:var(--ink-600);margin:0 0 16px">{{ post.excerpt }}</p>
+              <a onClick="{{ post.onOpen }}" style="cursor:pointer;display:inline-flex;align-items:center;gap:7px;color:var(--green-700);font-weight:600;font-size:15px">Read full article <i data-lucide="arrow-right" style="width:16px;height:16px"></i></a>
+            </article>
+          </sc-for>
+        </div>
+      </section>
+    </div>
+    <!-- ================= ARTICLE ================= -->
+    <div style="{{ articleStyle }}">
+      <section style="background:var(--green-800);color:var(--color-text-on-dark)">
+        <div style="max-width:820px;margin:0 auto;padding:60px 40px 56px">
+          <a onClick="{{ nav.blog }}" style="cursor:pointer;display:inline-flex;align-items:center;gap:7px;color:var(--gold-400);font-weight:600;font-size:12.5px;letter-spacing:.6px;text-transform:uppercase"><i data-lucide="arrow-left" style="width:16px;height:16px"></i>Back to Insights</a>
+          <div style="font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:var(--gold-400);font-weight:600;margin-top:28px">{{ article.eyebrow }}</div>
+          <h1 style="font-family:var(--font-display);font-weight:600;font-size:52px;line-height:1.08;margin:16px 0 0;letter-spacing:-0.4px;text-wrap:pretty">{{ article.title }}</h1>
+          <div style="display:flex;align-items:center;gap:14px;margin-top:30px;flex-wrap:wrap">
+            <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Avatar" name="{{ article.author }}" ring="{{ yes }}" size="lg" hint-size="52px,52px"></x-import>
+            <div>
+              <div style="font-weight:700;font-size:15px;color:#fff">{{ article.author }}</div>
+              <div style="font-size:13px;color:var(--color-text-on-dark-muted)">{{ article.role }}</div>
+            </div>
+            <span style="width:4px;height:4px;border-radius:50%;background:var(--gold-500);margin:0 4px"></span>
+            <div style="font-size:13px;color:var(--color-text-on-dark-muted)">{{ article.date }} · {{ article.read }}</div>
+          </div>
+        </div>
+      </section>
+      <article style="max-width:720px;margin:0 auto;padding:72px 40px 40px">
+        <sc-for list="{{ article.blocks }}" as="b" hint-placeholder-count="14">
+          <sc-if value="{{ b.isH }}" hint-placeholder-val="{{ no }}">
+            <h2 style="font-family:var(--font-display);font-weight:600;font-size:30px;color:var(--ink-900);margin:48px 0 8px;letter-spacing:-0.2px">{{ b.text }}<span style="display:block;width:48px;height:3px;background:var(--gold-500);border-radius:2px;margin-top:14px"></span></h2>
+          </sc-if>
+          <sc-if value="{{ b.isQuote }}" hint-placeholder-val="{{ no }}">
+            <blockquote style="margin:28px 0;padding:6px 0 6px 28px;border-left:3px solid var(--gold-500);font-family:var(--font-display);font-style:italic;font-size:22px;line-height:1.5;color:var(--ink-800);text-wrap:pretty">{{ b.text }}</blockquote>
+          </sc-if>
+          <sc-if value="{{ b.isP }}" hint-placeholder-val="{{ no }}">
+            <p style="font-size:18px;line-height:1.78;color:var(--ink-700);margin:0 0 22px;text-wrap:pretty">{{ b.text }}</p>
+          </sc-if>
+        </sc-for>
+      </article>
+      <div style="max-width:720px;margin:0 auto;padding:12px 40px 56px">
+        <div style="height:1px;background:var(--color-border);margin-bottom:28px"></div>
+        <h3 style="font-family:var(--font-display);font-weight:600;font-size:20px;color:var(--ink-900);margin:0 0 18px">Notes</h3>
+        <ol style="margin:0;padding-left:22px;display:flex;flex-direction:column;gap:9px">
+          <sc-for list="{{ article.footnotes }}" as="f" hint-placeholder-count="6">
+            <li style="font-size:13px;line-height:1.55;color:var(--ink-500)">{{ f.text }}</li>
+          </sc-for>
+        </ol>
+      </div>
+      <div style="background:var(--ink-50);border-top:1px solid var(--color-border)">
+        <div style="max-width:720px;margin:0 auto;padding:52px 40px;text-align:center">
+          <p style="font-size:17px;line-height:1.6;color:var(--ink-600);margin:0 0 22px">Have a question about structuring or running a legal practice — or any other matter?</p>
+          <div style="display:flex;justify-content:center"><x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Button" variant="primary" size="lg" onClick="{{ nav.contact }}" hint-size="auto,52px">Speak to an Advocate <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:rgba(0,0,0,.16)"><i data-lucide="arrow-up-right" style="width:15px;height:15px"></i></span></x-import></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <a href="https://wa.me/254710273649" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp" style="{{ waStyle }}" style-hover="{{ waHover }}" data-no-reveal="true">
+    <i data-lucide="message-circle" style="width:22px;height:22px"></i>Chat with us
+  </a>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div style="background:#231610;color:rgba(255,255,255,.72)">
+      <div style="max-width:var(--container-wide);margin:0 auto;padding:72px 40px 56px;display:grid;grid-template-columns:1.4fr 1.1fr .8fr 1.2fr;gap:48px">
+        <div>
+          <h4 style="font-family:var(--font-display);font-weight:600;font-size:24px;color:#fff;margin:0 0 18px">OOC Advocates</h4>
+          <p style="font-size:15px;line-height:1.75;margin:0">It is a rapidly growing full service law firm in Kenya. We take pride in advocating and practicing dynamic lawyering — prompt, proactive, and result-oriented.</p>
+        </div>
+        <div>
+          <h4 style="font-family:var(--font-display);font-weight:600;font-size:22px;color:#fff;margin:0 0 20px">Contact Info</h4>
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:16px;font-size:14.5px;line-height:1.55">
+            <li style="display:flex;gap:12px"><i data-lucide="phone" style="width:18px;height:18px;color:var(--gold-500)"></i><span>+254 (0) 780030740<br />+254 (0) 727625 333</span></li>
+            <li style="display:flex;gap:12px"><i data-lucide="mail" style="width:18px;height:18px;color:var(--gold-500)"></i><span>info@oocadvocates.africa</span></li>
+            <li style="display:flex;gap:12px"><i data-lucide="map-pin" style="width:18px;height:18px;color:var(--gold-500)"></i><span>Kims House, Suite No.4<br />Kijabe Street<br />Near K24 Studios,<br />Nairobi.</span></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="font-family:var(--font-display);font-weight:600;font-size:22px;color:#fff;margin:0 0 20px">Quick Links</h4>
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px;font-size:14.5px">
+            <li><a onClick="{{ nav.contact }}" style="cursor:pointer;color:inherit">Contact Us</a></li>
+            <li><a onClick="{{ nav.blog }}" style="cursor:pointer;color:inherit">Our Blog</a></li>
+            <li><a onClick="{{ nav.about }}" style="cursor:pointer;color:inherit">About Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="font-family:var(--font-display);font-weight:600;font-size:22px;color:#fff;margin:0 0 20px">Contacts</h4>
+          <div style="font-size:14px;line-height:1.6">
+            <div style="color:var(--gold-500);font-weight:600;margin-bottom:4px">Main Office</div>
+            <p style="margin:0 0 16px">Kims House, Suite No.4<br />Kijabe Street, next to text book centre,<br />Near K24 Studios.<br />Nairobi.</p>
+            <div style="color:var(--gold-500);font-weight:600;margin-bottom:4px">Branch Office</div>
+            <p style="margin:0">Wangirika House, 1st Floor,<br />Room No. F32,<br />Near Cooperative Bank.<br /><br />Tel: +254 (0) 780030740 / +254 (0) 727625333<br />Email: info@oocadvocates.africa</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="background:var(--green-600);color:#fff;text-align:center;padding:16px;font-size:14px;letter-spacing:.3px">© Copyright 2020 - 2026 | All Rights Reserved.</div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;startPage&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Home&quot;,&quot;About&quot;,&quot;Contact&quot;,&quot;Blog&quot;],&quot;default&quot;:&quot;Home&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Prototype&quot;},&quot;showInfoBar&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Prototype&quot;},&quot;stickyHeader&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Layout&quot;},&quot;heroScrim&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.5,&quot;min&quot;:0.2,&quot;max&quot;:0.9,&quot;step&quot;:0.02,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Layout&quot;}}">
+class Component extends DCLogic {
+  state = { page: this.props.startPage || 'Home', sent: false };
+
+  componentDidMount() { this.paintIcons(); this.initReveal(); }
+  componentDidUpdate() { this.paintIcons(); this.initReveal(); }
+
+  initReveal() {
+    if (typeof IntersectionObserver === 'undefined') return;
+    this._seen = this._seen || new WeakSet();
+    if (!this._io) {
+      this._io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          const el = e.target;
+          el.style.transitionDelay = (el.__revealDelay || 0) + 'ms';
+          el.style.opacity = '1';
+          el.style.transform = 'none';
+          this._io.unobserve(el);
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    }
+
+    requestAnimationFrame(() => {
+      const root = this.rootEl || document;
+      const sections = root.querySelectorAll('main section, footer > div:first-child > div');
+      sections.forEach((sec) => {
+        // only animate what is currently on a visible page
+        if (!sec.offsetParent && sec.tagName !== 'SECTION') return;
+        const groups = sec.querySelectorAll(
+          ':scope h1, :scope h2, :scope h3, :scope p, :scope article, :scope blockquote, ' +
+          ':scope > div > div > div, :scope li, :scope ol, :scope a[style*="cursor:pointer"]'
+        );
+        let i = 0;
+        groups.forEach((el) => {
+          if (this._seen.has(el) || el.closest('[data-no-reveal]')) return;
+          const dx = el.getBoundingClientRect();
+          if (dx.width === 0 && dx.height === 0) return; // hidden page — revisit on next update
+          this._seen.add(el);
+          // horizontal drift for wide two-column media, vertical rise otherwise
+          const wide = el.parentElement && getComputedStyle(el.parentElement).display === 'grid';
+          el.__revealDelay = Math.min(i * 70, 420);
+          el.style.opacity = '0';
+          el.style.transform = wide && i % 2 === 1 ? 'translateX(18px)' : 'translateY(14px)';
+          el.style.transition = 'opacity 620ms cubic-bezier(.16,.8,.28,1), transform 620ms cubic-bezier(.16,.8,.28,1)';
+          el.style.willChange = 'opacity, transform';
+          this._io.observe(el);
+          i++;
+        });
+      });
+    });
+  }
+  paintIcons() {
+    if (window.lucide && window.lucide.createIcons) {
+      requestAnimationFrame(() => { try { window.lucide.createIcons(); } catch (e) {} });
+    }
+  }
+
+  go(page) { this.setState({ page, sent: false }); const el = document.scrollingElement || document.documentElement; if (el) el.scrollTop = 0; }
+
+  renderVals() {
+    const page = this.state.page;
+    const scrim = this.props.heroScrim ?? 0.5;
+    const sticky = this.props.stickyHeader ?? true;
+
+    const ART = {
+      eyebrow: 'Insights · Firm Commentary',
+      title: 'Law as a Business in Kenya',
+      author: 'Allan Ong’ato, Esq',
+      role: 'Managing Partner · OOC Advocates',
+      date: 'April 2024',
+      read: '12 min read',
+      blocks: [
+        { type: 'p', text: 'Law as a Business has sought to be distinguished from Law as a Profession. Extracts from an article by Champ S. Andrews titled “The Law: A Business or a Profession?”¹ attempt to draw the perceived distinction between the Law when it is practised as a Business and when it is practised as a Profession — set out as a conversation between a law student and a distinguished jurist. It states thus —' },
+        { type: 'quote', text: 'But I would have the profession schools honest with the youthful enthusiast who knocks at their portals. I would have them say: choose between the law as a business and the law as a profession. If you decide on law as a business, then strip the calling of its arrogance and cant. Quit posing as a superior being, as a protector of the weak, as a man who prefers the reward of duty performed to services paid for.' },
+        { type: 'quote', text: 'If the young man decides to enter it as a profession, let him be told of what severe stuff the heroes of the bar are made. Let him realise that the sacrifices he will make and the rewards he will achieve are utterly different from those of men in other walks of life. Do not let him expect to reap both the rewards of a business career and a professional one.' },
+        { type: 'quote', text: 'It is a good thing for every man to be trained in the ways of the law — the years devoted to its study will not be wasted, even for those who conclude they are not heroic enough to become real professional lawyers, nor skilful enough as captains of industry to make law business pay. Training in law school will make better and broader men in whatever walk of life the student may go.' },
+        { type: 'p', text: 'The article goes on to paint the picture of the law when it is practised as a business in the following terms —' },
+        { type: 'quote', text: 'In older countries, England particularly, men have some independent income as a rule on entering the law, and under such circumstances it can be practised as a profession. In the United States ninety-nine out of a hundred lawyers practise it for all it is worth as a living… Anything to win is the motto; and with thousands of young men crowding the profession every year, where only a few are needed, there seems little hope that economic competition will leave the law anything but a sordid trade, based still on the false pretence that it is a dignified professional calling.' },
+        { type: 'p', text: 'Law as a Business generally carries a poor perception among the general public. Many consider lawyers in business to be money-hungry, motivated by greed, and producing nothing. An article by Norman Bowie titled “The Law: From a Profession to a Business”² aptly describes this —' },
+        { type: 'quote', text: 'The public believes that the practice of law has become a business, and that lawyers are in the profession for the money… Allegedly, lawyers overcharge, create work, and delay in order to make more money. In return they produce nothing useful; they do not make cars, steel, or heavy machinery. They are perceived by many as social parasites who make a handsome living off the productive labour of others.' },
+        { type: 'quote', text: 'Traditionally, business has not been viewed as a profession. The chief characteristic that distinguishes it is the motivation of business people, who are perceived to be egoistic — their primary motivation, according to economic theory, being to maximise their self-interest. This lack of altruistic spirit is thought sufficient to distinguish business from the professions.' },
+        { type: 'quote', text: 'Arguably, the competitive egoism of the market is better for the public than altruism. Adam Smith is the father of this view and Milton Friedman the most famous of his progeny. Business contributes to the public good whether or not it is considered a profession.' },
+        { type: 'p', text: 'Norman Bowie argues that lawyers might apply the same rationale. If they give up the pretence of being altruistically motivated and admit that they are in it for the money, the public still benefits: self-interest causes zealous client advocacy, which in turn promotes legal justice. Through a kind of “invisible hand” — the clash of lawyers jealously advocating client interests — the appropriate decision is reached.' },
+        { type: 'p', text: 'If the law is to remain a profession in the traditional sense, it must not lose its traditional mission. That is the danger in an era of specialisation, large firms, and association with corporate clients.³' },
+        { type: 'p', text: 'The functions of the law are: to enable a large mass of diversified human beings to live together;⁴ to serve as a repository of society’s most cherished values; and to promote justice. Lawyers behave altruistically so long as they enter the profession, and make legal decisions, with an eye toward promoting human interaction, society’s cherished values, and justice.⁵' },
+        { type: 'p', text: 'This having been said, Plato, in his famous work De Republica, reminds us that you can do good and still do well.⁶' },
+        { type: 'h', text: 'Law firms' },
+        { type: 'p', text: 'In Kenya, law as a business is mostly undertaken through law firms. Only persons admitted as Advocates of the High Court of Kenya pursuant to the Advocates Act⁷ may register law firms and practise law on their own behalf in Kenya.⁸ One may register the firm as a sole proprietorship, as a partnership under the Partnerships Act,⁹ or as a Limited Liability Partnership under the Limited Liability Partnerships Act.¹⁰' },
+        { type: 'p', text: 'Upon registering a firm, and before taking instructions from clients, every Advocate must purchase an insurance policy of not less than KES 1 million. Where practising in partnership or as a limited liability partnership, the professional indemnity cover is purchased in common.¹¹' },
+        { type: 'p', text: 'That cover is used to compensate clients for loss or damage arising from claims in respect of any civil liability or breach of trust by the advocate or their employees.¹²' },
+        { type: 'h', text: 'Practising certificate' },
+        { type: 'p', text: 'An Advocate is required to take out a practising certificate for every practice year, which runs from 1st January to 31st December.¹³' },
+        { type: 'h', text: 'Client account' },
+        { type: 'p', text: 'An Advocate running a firm must keep a client account — one or several, as the Advocate thinks necessary.¹⁴ Its purpose is to hold all client money. It may be a current or deposit account at a bank, building society or financial institution as defined in the Banking Act,¹⁵ in the name of the advocate(s), but whose title contains either the word “client” or the word “trust”.' },
+        { type: 'p', text: 'The Rules¹⁶ describe client money as —' },
+        { type: 'quote', text: '…money held or received by an advocate on account of a person for whom he is acting in relation to the holding or receipt of such money, either as an advocate or, in connexion with his practice, as agent, bailee, trustee, stakeholder or in any other capacity — including money held by way of deposit against fees to be earned or disbursements to be incurred, and money held on account of a trustee; but excluding money to which the only person entitled is the advocate, and money received in payment of an agreed fee.' },
+        { type: 'p', text: 'An Advocate must, at all times, keep properly written-up books of account sufficient to show every receipt of client money for each separate client; every payment or application of it for each separate client; the amount held in the client account for each separate client; and the moneys expended for, and costs charged to, each separate client.¹⁷ These books include a cash book and a ledger — kept so as to separate client money dealt with through a client account from the advocate’s own money relating to clients’ affairs — together with a record of all bills of costs delivered, distinguishing profit costs from disbursements.¹⁸' },
+        { type: 'p', text: 'Every advocate must preserve all required books of account for at least six years from the date of the last entry.¹⁹ Before the practising certificate of an Advocate who has handled client money is renewed, one requirement is an Accountant’s Certificate confirming that the Advocate’s books of account are in order.' },
+        { type: 'h', text: 'Marketing and advertising' },
+        { type: 'p', text: 'In the article referred to earlier, the distinguished jurist remarked —' },
+        { type: 'quote', text: 'A young lawyer once complained to me that he had to work all night to get business and all day to take care of it. In nearly every large firm in our great cities the indispensable partner is “the business getter.”' },
+        { type: 'p', text: 'It is hard to imagine a successful business without clients. To win clients, a business must embrace marketing and advertising, and — like any other business — lawyers too need a marketable product. But lawyers do not have a blank cheque: the Advocates (Marketing and Advertising) Rules, 2014²⁰ set out the strictures within which an Advocate may market a practice.' },
+        { type: 'p', text: 'An Advocate may only advertise²¹ in a non-legal or professional directory; on a website or other digital platform; in the print media (up to four times a year, and no larger than 0.210m × 0.297m); or by a plate or plaque at the entrance to the firm’s ordinary place of business (no larger than 0.5m × 0.35m). An advocate may not advertise on radio, television, or by illuminated billboard or placard.²²' },
+        { type: 'p', text: 'An advocate who attends a conference, seminar or similar public activity may publish a paper, circular or article, but only by identifying that advocate by name and profession.²³' },
+        { type: 'p', text: 'Where advertising is permitted, it may provide only limited information²⁴ — the identity of the advocate and firm; the date of admission to the Roll of Advocates; contact details; hours and language of business; and academic or professional qualifications, or contributions to legal education. It may not disclose²⁵ the name or identity of a client; a picture of the advocate or partners; positions held before admission to the Roll; or any promise to achieve a particular outcome.' },
+        { type: 'p', text: 'An Advocate or firm commits professional misconduct — and may be disciplined — for failing to comply with the Rules; using a public appearance for advertisement; using an intermediary to solicit business; or making false or misleading statements to solicit professional business.' },
+        { type: 'p', text: 'The advent of social media has transformed how people find information and services, and the legal profession has not been left behind: increasingly, lawyers market their practices online in creative ways. The time has come for the 2014 Rules to be updated to specifically regulate advertising via social media, which many lawyers have pursued with enthusiasm and verve — at times in ways that amount to unfairly seeking or attracting professional business contrary to the Rules as currently drafted.²⁶' },
+        { type: 'h', text: 'Charging of fees' },
+        { type: 'p', text: 'Payment of legal fees is regulated by the Advocates (Remuneration) Order, 1962 (the “ARO”). An Advocate is prevented from charging below what the ARO provides; to do so is undercutting, which is an offence.²⁷ An Advocate is also not permitted to share profits from professional business with a non-Advocate; such a person would likewise be guilty of an offence.²⁸' },
+        { type: 'p', text: 'An Advocate and a client may enter into a fee agreement at any point, setting out the Advocate’s remuneration, provided it is not below the ARO threshold;²⁹ such an agreement may be set aside if a Court finds it harsh, unconscionable, exorbitant or unreasonable.³⁰' },
+        { type: 'p', text: 'Certain fee agreements are invalid³¹ — the purchase by an advocate of a client’s interest in a suit; agreements relieving an advocate of responsibility for professional negligence; purely contingent “payment only on success” arrangements; agreements to accept less than the ARO remuneration, or more than twenty-five per cent of the general damages recovered (less taxed costs); and dispositions void against the Official Receiver under the Insolvency Act, 2015. In the absence of a fee agreement, an Advocate secures fees by taxing the Bill of Costs in accordance with the ARO.' },
+        { type: 'quote', text: 'Clients are really no judge of a lawyer’s fee. The very best work a lawyer can do for his client is just the kind of work a layman can never appreciate.' },
+        { type: 'h', text: 'Conclusion' },
+        { type: 'p', text: 'The distinguished jurist’s closing words to the young lawyer leave us with some food for thought —' },
+        { type: 'quote', text: 'When you are as old as I, in a search for the real heroes of the profession, you will not look for them on the Bench, nor necessarily among the successful practitioners, but in the lawyer who — while remaining a student devoted to the philosophy of the law — has been active and uncompromising in his fight against wrong and injustice, shunning law as a business and practising it as a profession. There are such men, considered failures by the Bar, but true at heart to the professional ideal.' },
+      ].map((b) => ({ ...b, isP: b.type === 'p', isQuote: b.type === 'quote', isH: b.type === 'h' })),
+      footnotes: [
+        'Champ S. Andrews, “The Law: A Business or a Profession?” (jstor.org/stable/784941).',
+        'Norman Bowie, “The Law: From a Profession to a Business” (core.ac.uk/download/pdf/322560023).',
+        'Norman Bowie, The Law: From a Profession to a Business.',
+        'Lon Fuller, The Morality of Law 109 (revised ed. 1969).',
+        'Supra n. 3.',
+        'A central message of Plato’s Republic — that it is never in a person’s interest to be unjust, not even a tyrant.',
+        'Cap. 16 of the Laws of Kenya.',
+        'See Part III of the Advocates Act.',
+        'No. 16 of 2021.',
+        'No. 42 of 2011.',
+        'See Rule 2 of the Advocates (Professional Indemnity) Regulations, 2004.',
+        'See Rule 3 of the Regulations.',
+        'Section 24(2) of the Advocates Act.',
+        'See Rule 3 of the Advocates (Accounts) Rules, 1966.',
+        'Cap. 488 of the Laws of Kenya.',
+        'See Rule 2 of the Advocates (Accounts) Rules, 1966.',
+        'See Rule 13 of the Advocates (Accounts) Rules, 1966.',
+        'See Rule 13(2).',
+        'See Rule 14.',
+        'Advocates (Marketing and Advertising) Rules, 2014.',
+        'See Rule 7.',
+        'See Rule 7(2).',
+        'See Rule 8.',
+        'See Rule 5(1).',
+        'See Rule 5(2).',
+        'See Rule 2.',
+        'Section 36 of the Advocates Act, Cap. 16 of the Laws of Kenya.',
+        'Section 37 of the Advocates Act.',
+        'Section 45(1) of the Advocates Act.',
+        'Section 45(2) of the Advocates Act.',
+        'Section 46 of the Advocates Act.',
+      ].map((text) => ({ text })),
+    };
+
+    const navItems = [
+      ['Home', 'Home'], ['About Us', 'About'], ['Contact Us', 'Contact'], ['Blog', 'Blog'],
+    ];
+    const activeKey = page === 'Article' ? 'Blog' : page;
+    const NAV = navItems.map(([label, key]) => {
+      const active = activeKey === key;
+      return {
+        label,
+        onClick: () => this.go(key),
+        hover: { color: 'var(--gold-600)' },
+        style: {
+          border: 'none', background: 'none', cursor: 'pointer', padding: '10px 16px',
+          fontFamily: 'var(--font-sans)', fontSize: '14px', fontWeight: 600, letterSpacing: '.6px',
+          textTransform: 'uppercase', color: active ? 'var(--gold-600)' : 'var(--ink-700)',
+          transition: 'color .15s ease',
+        },
+      };
+    });
+
+    const show = (k) => ({ display: page === k ? 'block' : 'none' });
+
+    return {
+      yes: true,
+      no: false,
+      sectorHover: { boxShadow: 'var(--shadow-md)', borderColor: 'var(--gold-300)' },
+      showInfoBar: this.props.showInfoBar ?? true,
+      nav: {
+        home: () => this.go('Home'),
+        about: () => this.go('About'),
+        contact: () => this.go('Contact'),
+        blog: () => this.go('Blog'),
+      },
+      NAV,
+      headerStyle: {
+        position: sticky ? 'sticky' : 'relative', top: 0, left: 0, right: 0, zIndex: 50,
+        background: '#fff', borderBottom: '1px solid var(--color-border)',
+      },
+      heroOverlayStyle: {
+        position: 'absolute', inset: 0, pointerEvents: 'none',
+        background: `linear-gradient(180deg, rgba(15,17,14,${Math.min(scrim + 0.06, 0.95)}), rgba(15,17,14,${scrim}))`,
+      },
+      homeStyle: show('Home'),
+      aboutStyle: show('About'),
+      waStyle: {
+        display: page === 'Contact' ? 'none' : 'inline-flex',
+        position: 'fixed', right: '28px', bottom: '28px', zIndex: 80,
+        alignItems: 'center', gap: '10px', padding: '13px 20px 13px 16px',
+        background: 'var(--green-600)', color: '#fff', textDecoration: 'none',
+        borderRadius: 'var(--radius-pill)', boxShadow: 'var(--shadow-lg)',
+        fontFamily: 'var(--font-sans)', fontSize: '14.5px', fontWeight: 600, letterSpacing: '.2px',
+        transition: 'background var(--dur-base,200ms) var(--ease-out,ease), transform var(--dur-base,200ms) var(--ease-out,ease)',
+      },
+      waHover: { background: 'var(--green-700)', transform: 'translateY(-1px)' },
+      contactStyle: show('Contact'),
+      blogStyle: show('Blog'),
+      articleStyle: show('Article'),
+      article: ART,
+      formStyle: { display: this.state.sent ? 'none' : 'block' },
+      sentStyle: { display: this.state.sent ? 'block' : 'none' },
+      submit: () => this.setState({ sent: true }),
+      reset: () => this.setState({ sent: false }),
+      WHY: [
+        { icon: 'handshake', title: 'Service', desc: 'We aim to provide the best legal options for you and/or your business.' },
+        { icon: 'compass', title: 'Knowledge', desc: 'Our Advocates will guide you through any legal obstacle in Kenya, using the most efficient path.' },
+        { icon: 'shield-check', title: 'Integrity', desc: 'We pledge to act with professionalism at all times when handling your matter.' },
+        { icon: 'trophy', title: 'Track Record', desc: 'We guarantee not only satisfactory service but also concrete, dependable results.' },
+      ],
+      PARTNERS: [
+        { name: 'Mr. Allan Ong’ato Khasabuli', role: 'Managing Partner', slot: 'lawyer-0', bio: 'Leads the firm’s litigation and corporate practice, advising Kenyan business, family, and property clients.', tags: ['Corporate', 'Litigation'] },
+        { name: 'Mr. Benard Ochieng’ Odhiambo', role: 'Senior Partner', slot: 'lawyer-1', bio: 'Land, conveyancing and commercial matters; trusted counsel to developers and enterprises.', tags: ['Conveyancing', 'Commercial'] },
+        { name: 'Mr. Kevin Mathenge Mwangi', role: 'Consultant', slot: 'lawyer-2', bio: 'Dispute resolution and employment matters before the courts and tribunals of Kenya.', tags: ['Disputes', 'Employment'] },
+        { name: 'Mr. Kinoti Kirera', role: 'Consultant', slot: 'lawyer-3', bio: 'Family law, succession and the drafting of wills, handled with discretion and genuine care.', tags: ['Family', 'Succession'] },
+      ],
+      POSTS: [
+        { img: 'post-0', onOpen: () => this.go('Article'), title: 'Law as a Business in Kenya', date: 'April 2024', excerpt: 'By Allan Ong’ato, Esq. Law as a Business has long been distinguished from Law as a Profession. We examine that perceived distinction — and what it means, practically, to run a law firm in Kenya: client accounts, the rules on marketing, and the charging of fees.' },
+        { img: 'post-1', onOpen: () => this.go('Blog'), title: 'ELRC Agrees Re-Termination Of Employment Does Not Exist Within Our Laws', date: 'August 24, 2023', excerpt: 'Join us as we delve into our conviction and motivation behind ELRC Appeal No. E009 of 2022 at Nairobi, and what the ruling means for employers and employees alike.' },
+        { img: 'post-2', onOpen: () => this.go('Blog'), title: 'Discriminatory Taint', date: 'September 4, 2023', excerpt: 'When may we call a policy the progeny of an earlier, discriminatory policy, especially if the policies diverge in design and designer? It is an old problem, but its resolution hardly seems impending. Just […]' },
+      ],
+      STATS: [
+        { value: 'Est. 2020', label: 'Advocates & Legal Counsel' },
+        { value: '300+', label: 'Matters handled' },
+        { value: '9', label: 'Practice areas' },
+        { value: '24 hrs', label: 'Typical enquiry response' },
+      ],
+      CREDS: [
+        { icon: 'landmark', label: 'Law Society of Kenya' },
+        { icon: 'shield-check', label: 'Advocates of the High Court' },
+        { icon: 'award', label: 'Chartered Institute of Arbitrators' },
+        { icon: 'book-open', label: 'Kenya Law & Compliance' },
+      ],
+      SECTORS: [
+        { icon: 'sprout', label: 'Agribusiness' },
+        { icon: 'landmark', label: 'Banking & Finance' },
+        { icon: 'zap', label: 'Energy & Renewables' },
+        { icon: 'briefcase', label: 'Financial Services' },
+        { icon: 'cpu', label: 'Fintech & Technology' },
+        { icon: 'shield', label: 'Insurance' },
+        { icon: 'factory', label: 'Manufacturing' },
+        { icon: 'radio-tower', label: 'Telecommunications' },
+        { icon: 'building-2', label: 'Real Estate & Projects' },
+      ],
+      PRACTICE: [
+        { title: 'Corporate & Commercial', desc: 'Incorporation, shareholder agreements, contracts, and regulatory compliance — with representation when disputes arise.' },
+        { title: 'Civil & Criminal Litigation', desc: 'Advocacy before the courts of Kenya across corporate, civil, and criminal matters, focused on principled outcomes.' },
+        { title: 'Conveyancing & Real Estate', desc: 'End-to-end property counsel: title searches, transfers, charges, leases, and thorough due diligence.' },
+        { title: 'Estate, Trusts & Family', desc: 'Discreet handling of succession, the drafting of wills, and the administration of estates and matrimonial matters.' },
+        { title: 'Labour & Employment', desc: 'Employment contracts, disputes, and representation before the Employment and Labour Relations Court.' },
+        { title: 'Data Protection & Privacy', desc: 'Compliance advisory under the Data Protection Act, privacy policies, and information-technology counsel.' },
+      ],
+      OFFER: [
+        { icon: 'briefcase', title: 'Industrial Relations & Employment Laws' },
+        { icon: 'landmark', title: 'Conveyancing, Real Estate & Projects' },
+        { icon: 'lightbulb', title: 'Intellectual Property & Information Technology' },
+        { icon: 'presentation', title: 'Speaking Arrangements, Workshops, Seminars & Trainings' },
+        { icon: 'heart-pulse', title: 'Personal Injury & Material Damage' },
+        { icon: 'building-2', title: 'Corporate Commercial' },
+        { icon: 'lock', title: 'Data Protection & Privacy' },
+      ],
+      CONTACTS: [
+        { icon: 'map-pin', title: 'Chambers', body: 'Kims House, Suite No.4, Kijabe Street\nNear K24 Studios, Nairobi.' },
+        { icon: 'phone', title: 'Telephone', body: '+254 (0) 710273649\n+254 (0) 780030740' },
+        { icon: 'mail', title: 'Email', body: 'info@oocadvocates.africa' },
+        { icon: 'clock', title: 'Hours', body: 'Mon–Fri, 8:30am – 5:30pm\nSaturday by appointment' },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>
