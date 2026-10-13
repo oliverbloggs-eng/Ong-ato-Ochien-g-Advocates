@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="../support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="../_ds/ong-ato-ochieng-advocates-design-system-8d1cc251-24b9-40da-863d-5bce532478bb/tokens/colors.css">
+  <link rel="stylesheet" href="../_ds/ong-ato-ochieng-advocates-design-system-8d1cc251-24b9-40da-863d-5bce532478bb/tokens/typography.css">
+  <link rel="stylesheet" href="../_ds/ong-ato-ochieng-advocates-design-system-8d1cc251-24b9-40da-863d-5bce532478bb/tokens/spacing.css">
+  <link rel="stylesheet" href="../_ds/ong-ato-ochieng-advocates-design-system-8d1cc251-24b9-40da-863d-5bce532478bb/tokens/radii.css">
+  <link rel="stylesheet" href="../_ds/ong-ato-ochieng-advocates-design-system-8d1cc251-24b9-40da-863d-5bce532478bb/styles.css">
+  <script src="../_ds/ong-ato-ochieng-advocates-design-system-8d1cc251-24b9-40da-863d-5bce532478bb/_ds_bundle.js"></script>
+  <style>
+    *{box-sizing:border-box} html,body{margin:0}
+    body{font-family:var(--font-sans);background:var(--ink-50);color:var(--ink-900)}
+    a{color:var(--green-600);text-decoration:none} a:hover{color:var(--green-700);text-decoration:underline}
+    @media (max-width:1180px){
+      [data-m="side"]{width:72px !important;flex-basis:72px !important;padding:24px 12px !important;align-items:center !important}
+      [data-m="side-text"]{display:none !important}
+      [data-m="side"] img{width:44px !important;height:auto !important}
+      [data-m="side"] nav button, [data-m="side"] > a, [data-m="side"] > button{justify-content:center !important;padding:11px !important}
+      [data-m="main"]{padding:32px 28px 56px !important}
+    }
+    @media (max-width:900px){
+      [data-m="side"]{display:none !important}
+      [data-m="mtabs"]{display:flex !important}
+      [data-m="main"]{padding:20px 16px 48px !important}
+      [data-m="thead"]{display:none !important}
+      [data-m="row"]{grid-template-columns:1fr auto !important;row-gap:10px !important}
+      [data-m="row"] > [data-m="cell-hide"]{display:none !important}
+      [data-m="drawer"]{width:100% !important}
+    }
+  </style>
+</helmet>
+
+<sc-if value="{{ isLoading }}" hint-placeholder-val="{{ false }}">
+  <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;color:var(--ink-500);font-size:15px">Loading…</div>
+</sc-if>
+
+<sc-if value="{{ isAuth }}" hint-placeholder-val="{{ false }}">
+  <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:var(--green-800)">
+    <div style="width:400px;max-width:100%;background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-xl);padding:32px">
+      <img src="../assets/logo-mark.png" alt="Ong'ato, Ochieng' &amp; Co. Advocates" style="height:44px;display:block" />
+      <h1 style="font-family:var(--font-display);font-weight:600;font-size:30px;margin:18px 0 0">{{ authTitle }}</h1>
+      <p style="font-size:14.5px;line-height:1.55;color:var(--ink-600);margin:6px 0 0">{{ authText }}</p>
+      <div style="display:flex;flex-direction:column;gap:16px;margin-top:22px">
+        <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.FieldLabel" label="Username" htmlFor="a-user" hint-size="100%,64px">
+          <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Input" id="a-user" autoComplete="username" value="{{ auth.username }}" onChange="{{ onAuth.username }}" hint-size="100%,44px"></x-import>
+        </x-import>
+        <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.FieldLabel" label="Password" htmlFor="a-pass" hint-size="100%,64px">
+          <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Input" id="a-pass" type="password" autoComplete="{{ passAuto }}" value="{{ auth.password }}" onChange="{{ onAuth.password }}" onKeyDown="{{ onAuthKey }}" hint-size="100%,44px"></x-import>
+        </x-import>
+        <sc-if value="{{ authError }}" hint-placeholder-val="{{ false }}">
+          <p role="alert" style="margin:0;font-size:14px;color:var(--color-danger)">{{ authError }}</p>
+        </sc-if>
+        <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Button" variant="secondary" fullWidth="{{ yes }}" onClick="{{ submitAuth }}" disabled="{{ busy }}" hint-size="100%,44px">{{ authButton }}</x-import>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isApp }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;min-height:100vh">
+  <aside data-m="side" style="width:248px;flex:0 0 248px;background:var(--green-800);color:#fff;display:flex;flex-direction:column;padding:24px 16px;position:sticky;top:0;height:100vh">
+    <div style="display:flex;align-items:center;gap:12px;padding:0 8px 24px;border-bottom:1px solid rgba(255,255,255,.12)">
+      <img src="../assets/logo-mark.png" alt="Ong'ato, Ochieng' &amp; Co. Advocates" style="height:38px;display:block" />
+      <div data-m="side-text">
+        <div style="font-family:var(--font-display);font-weight:600;font-size:18px;line-height:1.1">OOC Advocates</div>
+        <div style="font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:var(--gold-400);font-weight:600;margin-top:3px">Admin</div>
+      </div>
+    </div>
+    <nav style="display:flex;flex-direction:column;gap:4px;margin-top:20px">
+      <sc-for list="{{ navTabs }}" as="n" hint-placeholder-count="3">
+        <button onClick="{{ n.onClick }}" style="{{ n.style }}" aria-label="{{ n.label }}"><sc-if value="{{ n.isProps }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="{{ n.iconStyle }}"><path d="M3 10.5 12 3l9 7.5"></path><path d="M5 9.5V21h14V9.5"></path><path d="M10 21v-6h4v6"></path></svg></sc-if><sc-if value="{{ n.isBlog }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="{{ n.iconStyle }}"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9Z"></path><path d="M14 3v6h6"></path><path d="M8 13h8"></path><path d="M8 17h6"></path></svg></sc-if><sc-if value="{{ n.isUsers }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="{{ n.iconStyle }}"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></sc-if><span data-m="side-text">{{ n.label }}</span></button>
+      </sc-for>
+    </nav>
+    <div data-m="side-text" style="margin-top:auto;padding:12px;font-size:13px;color:rgba(255,255,255,.62)">Signed in as <strong style="color:#fff">{{ userName }}</strong></div>
+    <a href="../index.html" style="display:flex;align-items:center;gap:10px;padding:11px 12px;color:rgba(255,255,255,.78);font-size:14px">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
+      <span data-m="side-text">View website</span>
+    </a>
+    <button onClick="{{ logout }}" style="display:flex;align-items:center;gap:10px;padding:11px 12px;border:0;background:none;color:rgba(255,255,255,.78);font-family:var(--font-sans);font-size:14px;cursor:pointer;text-align:left">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><path d="m16 17 5-5-5-5"></path><path d="M21 12H9"></path></svg>
+      <span data-m="side-text">Log out</span>
+    </button>
+  </aside>
+
+  <main data-m="main" style="flex:1;min-width:0;padding:40px 48px 64px">
+    <div style="max-width:1120px;margin:0 auto">
+      <div data-m="mtabs" style="display:none;gap:6px;margin-bottom:18px;flex-wrap:wrap">
+        <sc-for list="{{ navTabs }}" as="n" hint-placeholder-count="3">
+          <button onClick="{{ n.onClick }}" style="{{ n.mStyle }}">{{ n.label }}</button>
+        </sc-for>
+        <button onClick="{{ logout }}" style="margin-left:auto;border:1px solid var(--color-border);background:var(--white);border-radius:var(--radius-pill);padding:8px 14px;font-family:var(--font-sans);font-size:13.5px;font-weight:600;color:var(--ink-700)">Log out</button>
+      </div>
+
+      <sc-if value="{{ demo }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-bottom:18px;padding:12px 16px;border:1px solid var(--gold-300);background:var(--gold-50);border-radius:var(--radius-md);font-size:14px;color:var(--ink-700)">Preview mode. The server is not connected here, so changes stay in this browser only. On the live site, changes save to the website.</div>
+      </sc-if>
+
+      <!-- ======== PROPERTIES ======== -->
+      <sc-if value="{{ onProps }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap">
+          <div>
+            <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Overline" hint-size="auto,16px">Property Catalogue</x-import>
+            <h1 style="font-family:var(--font-display);font-weight:600;font-size:38px;line-height:1.1;letter-spacing:-0.4px;margin:8px 0 0">Properties</h1>
+            <p style="font-size:15px;color:var(--ink-600);margin:8px 0 0">Only Published listings appear on the website. Publish after due diligence and approval.</p>
+          </div>
+          <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Button" variant="primary" onClick="{{ openAdd }}" hint-size="auto,44px">Add property</x-import>
+        </div>
+
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:28px">
+          <div style="display:flex;gap:4px;padding:4px;background:var(--white);border:1px solid var(--color-border);border-radius:var(--radius-md);flex-wrap:wrap">
+            <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+              <button onClick="{{ t.onClick }}" style="{{ t.style }}">{{ t.label }} <span style="{{ t.countStyle }}">{{ t.count }}</span></button>
+            </sc-for>
+          </div>
+          <div style="width:280px;max-width:100%">
+            <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Input" size="sm" placeholder="Search title or location" value="{{ query }}" onChange="{{ onQuery }}" hint-size="100%,38px"></x-import>
+          </div>
+        </div>
+
+        <sc-if value="{{ showSoldBar }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:16px;padding:14px 18px;background:var(--white);border:1px solid var(--color-border);border-radius:var(--radius-lg)">
+            <span style="font-size:14.5px;color:var(--ink-700)">{{ soldBarText }}</span>
+            <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Button" variant="outline" size="sm" onClick="{{ askDeleteSold }}" style="{{ dangerBtn }}" hint-size="auto,36px">Delete all sold</x-import>
+          </div>
+        </sc-if>
+
+        <div style="margin-top:16px;background:var(--white);border:1px solid var(--color-border);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);overflow:hidden">
+          <div data-m="thead" style="display:grid;grid-template-columns:minmax(180px,2.4fr) minmax(80px,1fr) minmax(120px,1.1fr) minmax(90px,.9fr) minmax(100px,1fr) 116px;gap:12px;padding:12px 20px;background:var(--ink-50);border-bottom:1px solid var(--color-border);font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--ink-500);font-weight:600">
+            <span>Property</span><span>Type</span><span>Price</span><span>Status</span><span>Updated</span><span style="text-align:right">Actions</span>
+          </div>
+          <sc-for list="{{ rows }}" as="r" hint-placeholder-count="4">
+            <div data-m="row" style="display:grid;grid-template-columns:minmax(180px,2.4fr) minmax(80px,1fr) minmax(120px,1.1fr) minmax(90px,.9fr) minmax(100px,1fr) 116px;gap:12px;align-items:center;padding:14px 20px;border-bottom:1px solid var(--ink-100)">
+              <div style="min-width:0;display:flex;align-items:center;gap:12px">
+                <div style="width:52px;height:40px;flex:0 0 auto;border-radius:4px;background:var(--ink-100);overflow:hidden">
+                  <div style="{{ r.thumbStyle }}"></div>
+                </div>
+                <div style="min-width:0">
+                  <div style="font-weight:600;font-size:15.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.title }}</div>
+                  <div style="font-size:13.5px;color:var(--ink-500);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.location }}</div>
+                </div>
+              </div>
+              <span data-m="cell-hide" style="font-size:14.5px;color:var(--ink-700)">{{ r.type }}</span>
+              <span data-m="cell-hide" style="font-size:14.5px;font-variant-numeric:tabular-nums;white-space:nowrap">{{ r.priceLabel }}</span>
+              <span data-m="cell-hide"><x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Badge" tone="{{ r.tone }}" hint-size="auto,22px">{{ r.status }}</x-import></span>
+              <span data-m="cell-hide" style="font-size:14px;color:var(--ink-500);white-space:nowrap">{{ r.updatedLabel }}</span>
+              <div style="display:flex;justify-content:flex-end;gap:4px">
+                <button onClick="{{ r.onEdit }}" title="Edit" aria-label="Edit {{ r.title }}" style="{{ iconBtn }}" style-hover="{{ iconHover }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg></button>
+                <sc-if value="{{ r.canMarkSold }}" hint-placeholder-val="{{ true }}">
+                  <button onClick="{{ r.onSold }}" title="Mark as sold" aria-label="Mark {{ r.title }} as sold" style="{{ iconBtnGold }}" style-hover="{{ iconHover }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></button>
+                </sc-if>
+                <button onClick="{{ r.onDelete }}" title="Delete" aria-label="Delete {{ r.title }}" style="{{ iconBtnRed }}" style-hover="{{ dangerHover }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M8 6V4h8v2"></path><path d="M19 6l-1 14H6L5 6"></path></svg></button>
+              </div>
+            </div>
+          </sc-for>
+          <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:48px 24px;text-align:center"><div style="font-family:var(--font-display);font-weight:600;font-size:22px">No properties here</div><p style="font-size:14.5px;color:var(--ink-500);margin:8px 0 0">{{ emptyText }}</p></div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <!-- ======== BLOG ======== -->
+      <sc-if value="{{ onBlog }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap">
+          <div>
+            <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Overline" hint-size="auto,16px">Insights</x-import>
+            <h1 style="font-family:var(--font-display);font-weight:600;font-size:38px;line-height:1.1;letter-spacing:-0.4px;margin:8px 0 0">Blog posts</h1>
+            <p style="font-size:15px;color:var(--ink-600);margin:8px 0 0">The newest date shows first on the website.</p>
+          </div>
+          <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Button" variant="primary" onClick="{{ openAddPost }}" hint-size="auto,44px">New post</x-import>
+        </div>
+        <div style="margin-top:24px;background:var(--white);border:1px solid var(--color-border);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);overflow:hidden">
+          <sc-for list="{{ postRows }}" as="p" hint-placeholder-count="3">
+            <div style="display:flex;align-items:center;gap:16px;padding:16px 20px;border-bottom:1px solid var(--ink-100)">
+              <div style="flex:1;min-width:0">
+                <div style="font-family:var(--font-display);font-weight:600;font-size:19px;line-height:1.3">{{ p.title }}</div>
+                <div style="font-size:13.5px;color:var(--ink-500);margin-top:3px">{{ p.meta }}</div>
+              </div>
+              <button onClick="{{ p.onEdit }}" title="Edit" aria-label="Edit {{ p.title }}" style="{{ iconBtn }}" style-hover="{{ iconHover }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg></button>
+              <button onClick="{{ p.onDelete }}" title="Delete" aria-label="Delete {{ p.title }}" style="{{ iconBtnRed }}" style-hover="{{ dangerHover }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M8 6V4h8v2"></path><path d="M19 6l-1 14H6L5 6"></path></svg></button>
+            </div>
+          </sc-for>
+          <sc-if value="{{ noPosts }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:48px 24px;text-align:center;color:var(--ink-500);font-size:15px">No posts yet.</div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <!-- ======== USERS ======== -->
+      <sc-if value="{{ onUsers }}" hint-placeholder-val="{{ false }}">
+        <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Overline" hint-size="auto,16px">Access</x-import>
+        <h1 style="font-family:var(--font-display);font-weight:600;font-size:38px;line-height:1.1;letter-spacing:-0.4px;margin:8px 0 0">Admin users</h1>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-top:24px;align-items:start">
+          <div style="background:var(--white);border:1px solid var(--color-border);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);overflow:hidden">
+            <sc-for list="{{ userRows }}" as="u" hint-placeholder-count="2">
+              <div style="display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--ink-100)">
+                <div style="flex:1"><div style="font-weight:600;font-size:15.5px">{{ u.username }}</div><div style="font-size:13px;color:var(--ink-500)">{{ u.meta }}</div></div>
+                <sc-if value="{{ u.canRemove }}" hint-placeholder-val="{{ true }}">
+                  <button onClick="{{ u.onRemove }}" style="border:0;background:none;color:var(--color-danger);font-family:var(--font-sans);font-size:14px;font-weight:600;cursor:pointer">Remove</button>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:20px">
+            <div style="background:var(--white);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:22px">
+              <h2 style="font-family:var(--font-display);font-weight:600;font-size:22px;margin:0 0 14px">Add a user</h2>
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Input" placeholder="Username (e.g. benard)" value="{{ nu.username }}" onChange="{{ onNu.username }}" hint-size="100%,44px"></x-import>
+                <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Input" type="password" autoComplete="new-password" placeholder="Password (10+ characters)" value="{{ nu.password }}" onChange="{{ onNu.password }}" hint-size="100%,44px"></x-import>
+                <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Button" variant="secondary" onClick="{{ addUser }}" hint-size="auto,44px">Add user</x-import>
+              </div>
+            </div>
+            <div style="background:var(--white);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:22px">
+              <h2 style="font-family:var(--font-display);font-weight:600;font-size:22px;margin:0 0 14px">Change my password</h2>
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Input" type="password" autoComplete="current-password" placeholder="Current password" value="{{ pw.current }}" onChange="{{ onPw.current }}" hint-size="100%,44px"></x-import>
+                <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Input" type="password" autoComplete="new-password" placeholder="New password (10+ characters)" value="{{ pw.password }}" onChange="{{ onPw.password }}" hint-size="100%,44px"></x-import>
+                <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Button" variant="outline" onClick="{{ changePw }}" hint-size="auto,44px">Update password</x-import>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+  </main>
+</div>
+
+<!-- property drawer -->
+<sc-if value="{{ drawerOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;z-index:60;background:rgba(20,26,23,.42);display:flex;justify-content:flex-end" onClick="{{ closeDrawer }}">
+    <div data-m="drawer" onClick="{{ stop }}" style="width:480px;height:100%;background:var(--white);box-shadow:var(--shadow-xl);display:flex;flex-direction:column">
+      <div style="padding:22px 28px;border-bottom:1px solid var(--color-border);display:flex;align-items:center;justify-content:space-between"><h2 style="font-family:var(--font-display);font-weight:600;font-size:26px;margin:0">{{ drawerTitle }}</h2><button onClick="{{ closeDrawer }}" aria-label="Close" style="border:0;background:none;cursor:pointer;color:var(--ink-500);font-size:26px;line-height:1">×</button></div>
+      <div style="flex:1;overflow:auto;padding:22px 28px;display:flex;flex-direction:column;gap:16px">
+        <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.FieldLabel" label="Title" required="{{ yes }}" htmlFor="f-title" hint-size="100%,64px"><x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Input" id="f-title" value="{{ form.title }}" onChange="{{ on.title }}" invalid="{{ err.title }}" hint-size="100%,44px"></x-import></x-import>
+        <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.FieldLabel" label="Location" required="{{ yes }}" htmlFor="f-loc" hint-size="100%,64px"><x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Input" id="f-loc" value="{{ form.location }}" onChange="{{ on.location }}" invalid="{{ err.location }}" hint-size="100%,44px"></x-import></x-import>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:600;color:var(--ink-800)">Type<select value="{{ form.type }}" onChange="{{ on.type }}" style="{{ selectStyle }}"><option>Land</option><option>Residential</option><option>Apartment</option><option>Commercial</option><option>Vehicle</option></select></label>
+          <label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:600;color:var(--ink-800)">Status<select value="{{ form.status }}" onChange="{{ on.status }}" style="{{ selectStyle }}"><option>Draft</option><option>Published</option><option>Sold</option></select></label>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.FieldLabel" label="Asking price (KES)" required="{{ yes }}" htmlFor="f-price" hint-size="100%,64px"><x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Input" id="f-price" inputMode="numeric" value="{{ form.price }}" onChange="{{ on.price }}" invalid="{{ err.price }}" hint-size="100%,44px"></x-import></x-import>
+          <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.FieldLabel" label="Size or details" htmlFor="f-size" hint-size="100%,64px"><x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Input" id="f-size" placeholder="0.5 acres, or 2019 · 68,000 km" value="{{ form.size }}" onChange="{{ on.size }}" hint-size="100%,44px"></x-import></x-import>
+        </div>
+        <label style="display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:var(--ink-800);cursor:pointer;min-height:44px"><input type="checkbox" checked="{{ form.featured }}" onChange="{{ on.featured }}" style="width:18px;height:18px;accent-color:var(--gold-600)" />Feature this listing on the home page</label>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <span style="font-size:14px;font-weight:600;color:var(--ink-800)">Photo</span>
+          <div style="display:flex;align-items:center;gap:14px">
+            <div style="width:112px;height:80px;flex:0 0 auto;border-radius:var(--radius-md);background:var(--ink-100);overflow:hidden;border:1px solid var(--color-border)"><div style="{{ formThumbStyle }}"></div></div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <label style="display:inline-flex;align-items:center;justify-content:center;height:36px;padding:0 14px;border:1px solid var(--color-border-strong);border-radius:var(--radius-md);font-size:14px;font-weight:600;color:var(--green-700);cursor:pointer">{{ photoLabel }}<input type="file" accept="image/jpeg,image/png,image/webp" onChange="{{ onPhoto }}" style="display:none" /></label>
+              <sc-if value="{{ formHasPhoto }}" hint-placeholder-val="{{ false }}"><button onClick="{{ clearPhoto }}" style="border:0;background:none;padding:0;text-align:left;font-family:var(--font-sans);font-size:13.5px;color:var(--color-danger);cursor:pointer">Remove photo</button></sc-if>
+            </div>
+          </div>
+        </div>
+        <label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:600;color:var(--ink-800)">Public description<textarea rows="5" value="{{ form.description }}" onChange="{{ on.description }}" placeholder="What buyers see. Keep confidential details out." style="{{ areaStyle }}"></textarea></label>
+        <sc-if value="{{ hasErrors }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:14px;color:var(--color-danger)">Fill in the title, location and a numeric asking price.</p></sc-if>
+      </div>
+      <div style="padding:16px 28px;border-top:1px solid var(--color-border);display:flex;justify-content:flex-end;gap:10px">
+        <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Button" variant="outline" onClick="{{ closeDrawer }}" hint-size="auto,44px">Cancel</x-import>
+        <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Button" variant="secondary" onClick="{{ save }}" disabled="{{ busy }}" hint-size="auto,44px">{{ saveLabel }}</x-import>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<!-- blog drawer -->
+<sc-if value="{{ postOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;z-index:60;background:rgba(20,26,23,.42);display:flex;justify-content:flex-end" onClick="{{ closePost }}">
+    <div data-m="drawer" onClick="{{ stop }}" style="width:640px;height:100%;background:var(--white);box-shadow:var(--shadow-xl);display:flex;flex-direction:column">
+      <div style="padding:22px 28px;border-bottom:1px solid var(--color-border);display:flex;align-items:center;justify-content:space-between"><h2 style="font-family:var(--font-display);font-weight:600;font-size:26px;margin:0">{{ postTitle }}</h2><button onClick="{{ closePost }}" aria-label="Close" style="border:0;background:none;cursor:pointer;color:var(--ink-500);font-size:26px;line-height:1">×</button></div>
+      <div style="flex:1;overflow:auto;padding:22px 28px;display:flex;flex-direction:column;gap:16px">
+        <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.FieldLabel" label="Title" required="{{ yes }}" htmlFor="b-title" hint-size="100%,64px"><x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Input" id="b-title" value="{{ pf.title }}" onChange="{{ onPf.title }}" invalid="{{ pfErr }}" hint-size="100%,44px"></x-import></x-import>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px">
+          <label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:600;color:var(--ink-800)">Date<input type="date" value="{{ pf.date }}" onChange="{{ onPf.date }}" style="{{ selectStyle }}" /></label>
+          <label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:600;color:var(--ink-800)">Author<input value="{{ pf.author }}" onChange="{{ onPf.author }}" style="{{ selectStyle }}" /></label>
+          <label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:600;color:var(--ink-800)">Author role<input value="{{ pf.role }}" onChange="{{ onPf.role }}" style="{{ selectStyle }}" /></label>
+        </div>
+        <label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:600;color:var(--ink-800)">Summary (shown on the blog list)<textarea rows="3" value="{{ pf.excerpt }}" onChange="{{ onPf.excerpt }}" style="{{ areaStyle }}"></textarea></label>
+        <label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:600;color:var(--ink-800)">Article
+          <span style="font-weight:400;font-size:13px;color:var(--ink-500)">Leave a blank line between paragraphs. Start a line with "&gt; " for a quote, or "## " for a section heading.</span>
+          <textarea rows="16" value="{{ pf.body }}" onChange="{{ onPf.body }}" style="{{ areaStyle }}"></textarea></label>
+        <label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:600;color:var(--ink-800)">Notes, one per line (optional)<textarea rows="4" value="{{ pf.notes }}" onChange="{{ onPf.notes }}" style="{{ areaStyle }}"></textarea></label>
+      </div>
+      <div style="padding:16px 28px;border-top:1px solid var(--color-border);display:flex;justify-content:flex-end;gap:10px">
+        <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Button" variant="outline" onClick="{{ closePost }}" hint-size="auto,44px">Cancel</x-import>
+        <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Button" variant="secondary" onClick="{{ savePost }}" disabled="{{ busy }}" hint-size="auto,44px">Save post</x-import>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ confirmOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;z-index:70;background:rgba(20,26,23,.48);display:flex;align-items:center;justify-content:center;padding:20px" onClick="{{ cancelConfirm }}">
+    <div onClick="{{ stop }}" role="dialog" aria-modal="true" style="width:440px;max-width:100%;background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-xl);padding:28px">
+      <h2 style="font-family:var(--font-display);font-weight:600;font-size:24px;margin:0">{{ confirmTitle }}</h2>
+      <p style="font-size:15px;line-height:1.6;color:var(--ink-600);margin:10px 0 0">{{ confirmText }}</p>
+      <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:24px">
+        <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Button" variant="outline" onClick="{{ cancelConfirm }}" hint-size="auto,44px">Cancel</x-import>
+        <x-import component-from-global-scope="OngAtoOchiengAdvocatesDesignSystem_8d1cc2.Button" variant="primary" onClick="{{ doConfirm }}" style="{{ dangerSolid }}" hint-size="auto,44px">Delete</x-import>
+      </div>
+    </div>
+  </div>
+</sc-if>
+</sc-if>
+
+<sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+  <div role="status" style="{{ toastStyle }}">{{ toast }}</div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const API = '../api/';
+const CONTENT = '../content/';
+const DEMO_KEY = 'ooc-admin-demo-v2';
+const SEED_PROPS = [
+  { title: 'Quarter-acre plot, Kitengela', location: 'Kitengela, Kajiado County', type: 'Land', price: 3200000, size: '0.25 acres', featured: true, status: 'Published', description: '', photo: '', updated: '2026-09-24' },
+  { title: '3-bedroom maisonette, Syokimau', location: 'Syokimau, Machakos County', type: 'Residential', price: 14500000, size: '240 sq m', status: 'Published', description: '', photo: '', updated: '2026-09-21' },
+  { title: 'Toyota Land Cruiser Prado TX, 2019', location: 'Westlands, Nairobi', type: 'Vehicle', price: 7400000, size: '2019 · 68,000 km · Diesel, automatic', status: 'Published', description: '', photo: '', updated: '2026-09-27' },
+];
+const BLANK = { title: '', location: '', type: 'Land', price: '', size: '', status: 'Draft', description: '', photo: '', featured: false };
+const today = () => new Date().toISOString().slice(0, 10);
+const fmtDate = (d) => { const x = new Date(String(d) + 'T00:00:00'); return isNaN(x) ? String(d || '') : x.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }); };
+const fmtPrice = (n) => 'KES ' + Number(n || 0).toLocaleString('en-KE');
+const withIds = (arr) => (arr || []).map((x, i) => ({ ...x, _id: i + 1 }));
+const strip = (arr) => arr.map(({ _id, ...rest }) => rest);
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      mode: 'loading', demo: false, user: '', csrf: '', busy: false,
+      auth: { username: '', password: '' }, authError: '', needsSetup: false,
+      tab: 'properties', props: [], posts: [], users: [],
+      filter: 'All', query: '', drawer: null, form: BLANK, errors: {},
+      post: null, pf: null, pfErr: false,
+      confirm: null, toast: '', toastBad: false,
+      nu: { username: '', password: '' }, pw: { current: '', password: '' },
+    };
+  }
+
+  componentDidMount() { this.boot(); }
+  componentWillUnmount() { clearTimeout(this._t); }
+
+  async call(file, body) {
+    const r = await fetch(API + file, { method: 'POST', credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json', 'X-CSRF': this.state.csrf }, body: JSON.stringify(body || {}) });
+    let d = null; try { d = await r.json(); } catch (e) {}
+    if (!r.ok || !d || !d.ok) {
+      if (r.status === 401) this.setState({ mode: 'login', authError: (d && d.error) || 'Please log in.' });
+      throw new Error((d && d.error) || 'Something went wrong. Please try again.');
+    }
+    return d;
+  }
+
+  async boot() {
+    try {
+      const r = await fetch(API + 'auth.php?action=me', { credentials: 'same-origin', cache: 'no-store' });
+      const d = await r.json();
+      if (!d || !d.ok) throw new Error('bad');
+      this.setState({ csrf: d.csrf, needsSetup: !!d.needsSetup });
+      if (d.user) { this.setState({ user: d.user }); await this.loadAll(); this.setState({ mode: 'app' }); }
+      else this.setState({ mode: d.needsSetup ? 'setup' : 'login' });
+    } catch (e) {
+      // No server here (preview). Run a local demo so the screens can be reviewed.
+      let saved = null; try { saved = JSON.parse(localStorage.getItem(DEMO_KEY) || 'null'); } catch (x) {}
+      let posts = [];
+      try { const b = await (await fetch('../content/blog.json')).json(); posts = b.posts || []; } catch (x) {}
+      this.setState({ mode: 'app', demo: true, user: 'preview',
+        props: withIds(saved ? saved.props : SEED_PROPS), posts: withIds(saved ? saved.posts : posts),
+        users: [{ username: 'preview', created: '' }] });
+    }
+  }
+
+  async loadAll() {
+    const get = async (p) => { try { const r = await fetch(CONTENT + p + '?t=' + Date.now(), { cache: 'no-store' }); return r.ok ? await r.json() : null; } catch (e) { return null; } };
+    const [pr, bl] = await Promise.all([get('properties.json'), get('blog.json')]);
+    this.setState({ props: withIds(pr && pr.items), posts: withIds(bl && bl.posts) });
+    try { const u = await this.call('users.php', { action: 'list' }); this.setState({ users: u.users }); } catch (e) {}
+  }
+
+  flash(msg, bad) {
+    clearTimeout(this._t);
+    this.setState({ toast: msg, toastBad: !!bad });
+    this._t = setTimeout(() => this.setState({ toast: '' }), bad ? 5000 : 2600);
+  }
+
+  async persist(kind, list) {
+    if (this.state.demo) {
+      const next = { props: strip(kind === 'props' ? list : this.state.props), posts: strip(kind === 'posts' ? list : this.state.posts) };
+      try { localStorage.setItem(DEMO_KEY, JSON.stringify(next)); } catch (e) {}
+      this.setState({ [kind]: withIds(strip(list)) });
+      return true;
+    }
+    this.setState({ busy: true });
+    try {
+      await this.call('content.php', kind === 'props' ? { type: 'properties', data: { items: strip(list) } } : { type: 'blog', data: { posts: strip(list) } });
+      this.setState({ [kind]: withIds(strip(list)), busy: false });
+      return true;
+    } catch (e) { this.setState({ busy: false }); this.flash(e.message, true); return false; }
+  }
+
+  async submitAuth() {
+    const { auth, mode } = this.state;
+    if (!auth.username || !auth.password) { this.setState({ authError: 'Enter a username and password.' }); return; }
+    this.setState({ busy: true, authError: '' });
+    try {
+      const d = await this.call('auth.php', { action: mode === 'setup' ? 'setup' : 'login', ...auth });
+      this.setState({ user: d.user, csrf: d.csrf || this.state.csrf, auth: { username: '', password: '' } });
+      await this.loadAll();
+      this.setState({ mode: 'app', busy: false });
+    } catch (e) { this.setState({ busy: false, authError: e.message }); }
+  }
+
+  openEdit(item) {
+    this.setState({ drawer: item ? item._id : 'new', form: item ? { ...BLANK, ...item, price: String(item.price) } : { ...BLANK }, errors: {} });
+  }
+
+  async save() {
+    const f = this.state.form;
+    const price = Number(String(f.price).replace(/[^\d]/g, ''));
+    const errors = { title: !f.title.trim(), location: !f.location.trim(), price: !price };
+    if (errors.title || errors.location || errors.price) { this.setState({ errors }); return; }
+    const rec = { ...f, title: f.title.trim(), location: f.location.trim(), price, updated: today() };
+    const isNew = this.state.drawer === 'new';
+    const list = isNew ? [rec, ...this.state.props] : this.state.props.map((i) => (i._id === this.state.drawer ? { ...rec, _id: i._id } : i));
+    if (await this.persist('props', list)) { this.setState({ drawer: null }); this.flash(isNew ? 'Property added.' : 'Changes saved.'); }
+  }
+
+  async uploadPhoto(file) {
+    if (!file) return;
+    if (this.state.demo) {
+      const url = URL.createObjectURL(file);
+      this.setState({ form: { ...this.state.form, photo: url } });
+      return;
+    }
+    this.setState({ busy: true });
+    try {
+      const fd = new FormData(); fd.append('photo', file);
+      const r = await fetch(API + 'upload.php', { method: 'POST', credentials: 'same-origin', headers: { 'X-CSRF': this.state.csrf }, body: fd });
+      const d = await r.json();
+      if (!r.ok || !d.ok) throw new Error(d.error || 'Upload failed.');
+      this.setState({ form: { ...this.state.form, photo: d.path }, busy: false });
+    } catch (e) { this.setState({ busy: false }); this.flash(e.message, true); }
+  }
+
+  openPost(p) {
+    this.setState({ post: p ? p._id : 'new', pfErr: false,
+      pf: p ? { ...p, notes: (p.notes || []).join('\n') } : { title: '', date: today(), author: this.state.user === 'allan' ? 'Allan Ong’ato' : 'OOC Advocates', role: '', excerpt: '', body: '', notes: '' } });
+  }
+
+  async savePost() {
+    const pf = this.state.pf;
+    if (!pf.title.trim()) { this.setState({ pfErr: true }); return; }
+    const rec = { ...pf, title: pf.title.trim(), notes: String(pf.notes || '').split('\n').map((s) => s.trim()).filter(Boolean) };
+    const isNew = this.state.post === 'new';
+    const list = isNew ? [rec, ...this.state.posts] : this.state.posts.map((x) => (x._id === this.state.post ? { ...rec, _id: x._id } : x));
+    if (await this.persist('posts', list)) { this.setState({ post: null }); this.flash(isNew ? 'Post published.' : 'Post saved.'); }
+  }
+
+  renderVals() {
+    const s = this.state;
+    const counts = { All: s.props.length, Published: 0, Draft: 0, Sold: 0 };
+    s.props.forEach((i) => { counts[i.status] = (counts[i.status] || 0) + 1; });
+    const q = s.query.trim().toLowerCase();
+    const visible = s.props.filter((i) => s.filter === 'All' || i.status === s.filter).filter((i) => !q || (i.title + ' ' + i.location).toLowerCase().includes(q));
+    const tone = { Published: 'green', Draft: 'neutral', Sold: 'gold' };
+    const src = (p) => (!p ? '' : /^(blob:|data:|https?:|\/)/.test(p) ? p : '../' + p);
+    const thumb = (p) => ({ width: '100%', height: '100%', backgroundColor: 'var(--ink-100)', backgroundSize: 'cover', backgroundPosition: 'center', backgroundImage: p ? 'url("' + src(p).replace(/"/g, '%22') + '")' : 'none' });
+    const setF = (k) => (e) => this.setState({ form: { ...this.state.form, [k]: e.target.value }, errors: { ...this.state.errors, [k]: false } });
+    const setP = (k) => (e) => this.setState({ pf: { ...this.state.pf, [k]: e.target.value }, pfErr: false });
+    const setA = (k) => (e) => this.setState({ auth: { ...this.state.auth, [k]: e.target.value }, authError: '' });
+    const setN = (k) => (e) => this.setState({ nu: { ...this.state.nu, [k]: e.target.value } });
+    const setW = (k) => (e) => this.setState({ pw: { ...this.state.pw, [k]: e.target.value } });
+    const iconBase = { width: '36px', height: '36px', border: '1px solid transparent', borderRadius: 'var(--radius-md)', background: 'none', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' };
+    const ctl = { height: '44px', padding: '0 12px', fontFamily: 'var(--font-sans)', fontSize: '15px', color: 'var(--ink-900)', background: 'var(--white)', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-md)', fontWeight: 400 };
+
+    return {
+      yes: true, no: false,
+      isLoading: s.mode === 'loading', isAuth: s.mode === 'login' || s.mode === 'setup', isApp: s.mode === 'app',
+      authTitle: s.mode === 'setup' ? 'Create the first admin' : 'Admin login',
+      authText: s.mode === 'setup' ? 'No admin account exists yet. Choose a username and a password of at least 10 characters.' : 'Sign in to manage property listings and blog posts.',
+      authButton: s.busy ? 'Please wait…' : s.mode === 'setup' ? 'Create account' : 'Log in',
+      passAuto: s.mode === 'setup' ? 'new-password' : 'current-password',
+      auth: s.auth, onAuth: { username: setA('username'), password: setA('password') },
+      onAuthKey: (e) => { if (e.key === 'Enter') this.submitAuth(); },
+      authError: s.authError, submitAuth: () => this.submitAuth(), busy: s.busy,
+      demo: s.demo, userName: s.user,
+      logout: async () => { if (!s.demo) { try { await this.call('auth.php', { action: 'logout' }); } catch (e) {} } this.setState({ mode: s.demo ? 'app' : 'login', user: '' }); if (!s.demo) this.boot(); },
+
+      navTabs: [['properties', 'Properties'], ['blog', 'Blog'], ['users', 'Users']].map(([k, label]) => {
+        const on = s.tab === k;
+        return { label, onClick: () => this.setState({ tab: k }),
+          style: { display: 'flex', alignItems: 'center', gap: '12px', padding: '11px 12px', borderRadius: 'var(--radius-md)', border: 0, cursor: 'pointer', fontFamily: 'var(--font-sans)', fontSize: '15px', fontWeight: 600, textAlign: 'left', background: on ? 'rgba(255,255,255,.10)' : 'transparent', color: on ? '#fff' : 'rgba(255,255,255,.78)' },
+          isProps: k === 'properties', isBlog: k === 'blog', isUsers: k === 'users',
+          iconStyle: { flex: '0 0 auto', color: on ? 'var(--gold-400)' : 'rgba(255,255,255,.7)' },
+          mStyle: { border: '1px solid ' + (on ? 'var(--green-700)' : 'var(--color-border)'), background: on ? 'var(--green-700)' : 'var(--white)', color: on ? '#fff' : 'var(--ink-700)', borderRadius: 'var(--radius-pill)', padding: '8px 14px', fontFamily: 'var(--font-sans)', fontSize: '13.5px', fontWeight: 600 } };
+      }),
+      onProps: s.tab === 'properties', onBlog: s.tab === 'blog', onUsers: s.tab === 'users',
+
+      tabs: ['All', 'Published', 'Draft', 'Sold'].map((t) => {
+        const on = s.filter === t;
+        return { label: t, count: counts[t] || 0, onClick: () => this.setState({ filter: t }),
+          style: { border: 0, cursor: 'pointer', padding: '8px 14px', borderRadius: '4px', fontFamily: 'var(--font-sans)', fontSize: '14px', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '8px', background: on ? 'var(--green-700)' : 'transparent', color: on ? '#fff' : 'var(--ink-700)' },
+          countStyle: { fontSize: '12px', fontWeight: 700, padding: '2px 7px', borderRadius: 'var(--radius-pill)', background: on ? 'rgba(255,255,255,.18)' : 'var(--ink-100)', color: on ? '#fff' : 'var(--ink-600)' } };
+      }),
+      query: s.query, onQuery: (e) => this.setState({ query: e.target.value }),
+      rows: visible.map((i) => ({ ...i, priceLabel: fmtPrice(i.price), updatedLabel: fmtDate(i.updated), tone: tone[i.status] || 'neutral',
+        hasPhoto: !!i.photo, thumbStyle: thumb(i.photo), canMarkSold: i.status !== 'Sold',
+        onEdit: () => this.openEdit(i),
+        onSold: async () => { if (await this.persist('props', this.state.props.map((x) => (x._id === i._id ? { ...x, status: 'Sold', updated: today() } : x)))) this.flash('Marked as sold. It no longer shows on the website.'); },
+        onDelete: () => this.setState({ confirm: { kind: 'prop', id: i._id, title: i.title } }) })),
+      isEmpty: visible.length === 0,
+      emptyText: q ? 'Nothing matches that search.' : s.filter === 'All' ? 'Add your first property to get started.' : 'There are no ' + s.filter.toLowerCase() + ' properties.',
+      showSoldBar: s.filter === 'Sold' && counts.Sold > 0,
+      soldBarText: counts.Sold + (counts.Sold === 1 ? ' sold property is' : ' sold properties are') + ' still stored.',
+      askDeleteSold: () => this.setState({ confirm: { kind: 'sold' } }),
+      iconBtn: { ...iconBase, color: 'var(--green-700)' }, iconBtnGold: { ...iconBase, color: 'var(--gold-700)' }, iconBtnRed: { ...iconBase, color: 'var(--color-danger)' },
+      iconHover: { background: 'var(--green-50)' }, dangerHover: { background: '#f7e6e5' },
+      dangerBtn: { color: 'var(--color-danger)', borderColor: 'rgba(179,38,30,.35)' },
+      dangerSolid: { background: 'var(--color-danger)', borderColor: 'var(--color-danger)', color: '#fff' },
+      selectStyle: ctl, areaStyle: { ...ctl, height: 'auto', padding: '12px 14px', lineHeight: 1.55, resize: 'vertical' },
+
+      openAdd: () => this.openEdit(null),
+      drawerOpen: s.drawer !== null, drawerTitle: s.drawer === 'new' ? 'Add property' : 'Edit property',
+      saveLabel: s.busy ? 'Saving…' : s.drawer === 'new' ? 'Add property' : 'Save changes',
+      closeDrawer: () => this.setState({ drawer: null }), stop: (e) => e.stopPropagation(),
+      form: s.form, err: s.errors, hasErrors: !!(s.errors.title || s.errors.location || s.errors.price),
+      on: { title: setF('title'), location: setF('location'), type: setF('type'), status: setF('status'), featured: (e) => this.setState({ form: { ...this.state.form, featured: !!(e && e.target && e.target.checked) } }), price: setF('price'), size: setF('size'), description: setF('description') },
+      formHasPhoto: !!s.form.photo, formThumbStyle: thumb(s.form.photo), photoLabel: s.form.photo ? 'Replace photo' : 'Upload photo',
+      clearPhoto: () => this.setState({ form: { ...this.state.form, photo: '' } }),
+      onPhoto: (e) => { this.uploadPhoto(e.target.files && e.target.files[0]); e.target.value = ''; },
+      save: () => this.save(),
+
+      postRows: [...s.posts].sort((a, b) => String(b.date || '').localeCompare(String(a.date || ''))).map((p) => ({ ...p,
+        meta: fmtDate(p.date) + ' · ' + (p.author || '') + (p.body ? '' : ' · summary only'),
+        onEdit: () => this.openPost(p), onDelete: () => this.setState({ confirm: { kind: 'post', id: p._id, title: p.title } }) })),
+      noPosts: s.posts.length === 0,
+      openAddPost: () => this.openPost(null),
+      postOpen: s.post !== null, postTitle: s.post === 'new' ? 'New post' : 'Edit post',
+      pf: s.pf || {}, pfErr: s.pfErr,
+      onPf: { title: setP('title'), date: setP('date'), author: setP('author'), role: setP('role'), excerpt: setP('excerpt'), body: setP('body'), notes: setP('notes') },
+      closePost: () => this.setState({ post: null }), savePost: () => this.savePost(),
+
+      userRows: s.users.map((u) => ({ ...u, meta: u.username === s.user ? 'You' : u.created ? 'Added ' + fmtDate(String(u.created).slice(0, 10)) : '',
+        canRemove: u.username !== s.user && !s.demo,
+        onRemove: () => this.setState({ confirm: { kind: 'user', id: u.username, title: u.username } }) })),
+      nu: s.nu, onNu: { username: setN('username'), password: setN('password') },
+      pw: s.pw, onPw: { current: setW('current'), password: setW('password') },
+      addUser: async () => {
+        if (s.demo) { this.flash('Users can be added on the live site.'); return; }
+        try { const d = await this.call('users.php', { action: 'add', ...this.state.nu }); this.setState({ users: d.users, nu: { username: '', password: '' } }); this.flash('User added.'); }
+        catch (e) { this.flash(e.message, true); }
+      },
+      changePw: async () => {
+        if (s.demo) { this.flash('Passwords can be changed on the live site.'); return; }
+        try { await this.call('users.php', { action: 'password', ...this.state.pw }); this.setState({ pw: { current: '', password: '' } }); this.flash('Password updated.'); }
+        catch (e) { this.flash(e.message, true); }
+      },
+
+      confirmOpen: !!s.confirm,
+      confirmTitle: !s.confirm ? '' : s.confirm.kind === 'sold' ? 'Delete all sold properties?' : s.confirm.kind === 'user' ? 'Remove this user?' : s.confirm.kind === 'post' ? 'Delete this post?' : 'Delete this property?',
+      confirmText: !s.confirm ? '' : s.confirm.kind === 'sold' ? 'This removes ' + counts.Sold + ' sold ' + (counts.Sold === 1 ? 'property' : 'properties') + '. This cannot be undone.' : '“' + s.confirm.title + '” will be removed. This cannot be undone.',
+      cancelConfirm: () => this.setState({ confirm: null }),
+      doConfirm: async () => {
+        const c = this.state.confirm; this.setState({ confirm: null });
+        if (c.kind === 'user') { try { const d = await this.call('users.php', { action: 'remove', username: c.id }); this.setState({ users: d.users }); this.flash('User removed.'); } catch (e) { this.flash(e.message, true); } return; }
+        if (c.kind === 'post') { if (await this.persist('posts', this.state.posts.filter((p) => p._id !== c.id))) this.flash('Post deleted.'); return; }
+        const list = c.kind === 'sold' ? this.state.props.filter((i) => i.status !== 'Sold') : this.state.props.filter((i) => i._id !== c.id);
+        if (await this.persist('props', list)) this.flash(c.kind === 'sold' ? 'Sold properties deleted.' : 'Property deleted.');
+      },
+      toast: s.toast,
+      toastStyle: { position: 'fixed', left: '50%', bottom: '28px', transform: 'translateX(-50%)', zIndex: 80, background: s.toastBad ? 'var(--color-danger)' : 'var(--green-800)', color: '#fff', padding: '12px 20px', borderRadius: 'var(--radius-md)', boxShadow: 'var(--shadow-lg)', fontSize: '14.5px', maxWidth: 'calc(100vw - 32px)' },
+    };
+  }
+}
+</script>
+</body>
+</html>

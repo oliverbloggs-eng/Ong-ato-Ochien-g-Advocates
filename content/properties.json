@@ -1,0 +1,37 @@
+{
+  "items": [
+    {
+      "title": "Quarter-acre plot, Kitengela",
+      "location": "Kitengela, Kajiado County",
+      "type": "Land",
+      "price": 3200000,
+      "size": "0.25 acres",
+      "status": "Published",
+      "description": "",
+      "photo": "",
+      "updated": "2026-09-24"
+    },
+    {
+      "title": "3-bedroom maisonette, Syokimau",
+      "location": "Syokimau, Machakos County",
+      "type": "Residential",
+      "price": 14500000,
+      "size": "240 sq m",
+      "status": "Published",
+      "description": "",
+      "photo": "",
+      "updated": "2026-09-21"
+    },
+    {
+      "title": "Toyota Land Cruiser Prado TX, 2019",
+      "location": "Westlands, Nairobi",
+      "type": "Vehicle",
+      "price": 7400000,
+      "size": "2019 · 68,000 km · Diesel, automatic",
+      "status": "Published",
+      "description": "",
+      "photo": "",
+      "updated": "2026-09-27"
+    }
+  ]
+}

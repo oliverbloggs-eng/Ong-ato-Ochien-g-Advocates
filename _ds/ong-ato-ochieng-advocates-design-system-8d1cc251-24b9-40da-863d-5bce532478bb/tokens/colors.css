@@ -1,0 +1,76 @@
+/* Ong'ato, Ochieng' & Co. Advocates — Color tokens
+   Palette derived from the firm logo: metallic gold + forest green on white. */
+:root{
+  /* ===== Brand base scales ===== */
+  /* Gold — the interlocking "O" ring, wordmark, primary brand voltage */
+  --gold-50:#faf6e9;
+  --gold-100:#f3ebcf;
+  --gold-200:#e6d59d;
+  --gold-300:#d7bd68;
+  --gold-400:#cbac48;
+  --gold-500:#c0a030;   /* core brand gold (sampled from logo) */
+  --gold-600:#a2871f;   /* pressed / darker */
+  --gold-700:#816a17;
+  --gold-800:#5f4e12;
+
+  /* Green — the interlocking "C" ring, "ADVOCATES", trust + counsel */
+  --green-50:#e8f2ec;
+  --green-100:#c9e2d3;
+  --green-200:#8fc3a6;
+  --green-300:#4fa176;
+  --green-400:#16855a;
+  --green-500:#007a40;   /* core brand green (sampled from logo) */
+  --green-600:#006134;
+  --green-700:#004a28;
+  --green-800:#00351d;
+
+  /* ===== Neutrals — warm slate, tuned to sit beside gold/green ===== */
+  --ink-900:#141a17;   /* strongest text / near-black, warm-green tint */
+  --ink-800:#222b26;
+  --ink-700:#3a453e;
+  --ink-600:#586158;
+  --ink-500:#78807a;   /* muted body */
+  --ink-400:#9aa19b;
+  --ink-300:#c2c7c2;
+  --ink-200:#dfe3df;   /* hairlines on light */
+  --ink-100:#eef0ed;
+  --ink-50:#f6f7f4;    /* soft page tint */
+  --white:#ffffff;
+
+  /* ===== Semantic aliases ===== */
+  --color-primary:var(--gold-500);
+  --color-primary-active:var(--gold-600);
+  --color-primary-soft:var(--gold-100);
+  --color-secondary:var(--green-500);
+  --color-secondary-active:var(--green-600);
+  --color-secondary-soft:var(--green-50);
+
+  --color-canvas:var(--white);
+  --color-canvas-tint:var(--ink-50);
+  --color-canvas-dark:var(--green-800);   /* deep green marketing floor */
+  --color-surface:var(--white);
+  --color-surface-tint:var(--ink-50);
+  --color-surface-dark:var(--green-700);
+
+  --color-text:var(--ink-900);
+  --color-text-muted:var(--ink-500);
+  --color-text-subtle:var(--ink-400);
+  --color-text-on-dark:#f3f6f2;
+  --color-text-on-dark-muted:#a9c0b2;
+  --color-on-primary:var(--ink-900);      /* dark ink on gold */
+  --color-on-secondary:var(--white);      /* white on green */
+
+  --color-border:var(--ink-200);
+  --color-border-strong:var(--ink-300);
+  --color-border-on-dark:rgba(255,255,255,.16);
+
+  --color-link:var(--green-600);
+  --color-link-hover:var(--green-700);
+
+  /* ===== Status ===== */
+  --color-success:#1f8a4c;
+  --color-warning:#c58a12;
+  --color-danger:#b23a34;
+  --color-info:#2f6f7d;
+  --color-focus-ring:rgba(192,160,48,.45);
+}

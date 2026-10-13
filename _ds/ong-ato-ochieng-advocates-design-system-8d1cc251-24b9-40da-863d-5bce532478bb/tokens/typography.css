@@ -1,0 +1,58 @@
+/* Typography tokens — Ong'ato, Ochieng' & Co. Advocates
+   Display: Cormorant Garamond (serif, legal gravitas)
+   Body/UI: Source Sans 3 (humanist sans, clean + professional)
+   NOTE: no brand fonts were supplied; these are Google Fonts substitutes. */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap');
+
+:root{
+  --font-display:'Cormorant Garamond','Hoefler Text',Georgia,'Times New Roman',serif;
+  --font-sans:'Source Sans 3',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --font-body:var(--font-sans);
+
+  /* Weights */
+  --fw-regular:400; /* @kind font */
+  --fw-medium:500; /* @kind font */
+  --fw-semibold:600; /* @kind font */
+  --fw-bold:700; /* @kind font */
+
+  /* Type scale — role tokens */
+  --t-hero-size:72px; /* @kind font */
+  --t-hero-lh:1.04; /* @kind font */
+  --t-hero-ls:-0.5px; /* @kind font */
+  --t-hero-w:600; /* @kind font */
+  --t-display-size:52px; /* @kind font */
+  --t-display-lh:1.08; /* @kind font */
+  --t-display-ls:-0.3px; /* @kind font */
+  --t-display-w:600; /* @kind font */
+  --t-h1-size:40px; /* @kind font */
+  --t-h1-lh:1.12; /* @kind font */
+  --t-h1-ls:-0.2px; /* @kind font */
+  --t-h1-w:600; /* @kind font */
+  --t-h2-size:30px; /* @kind font */
+  --t-h2-lh:1.18; /* @kind font */
+  --t-h2-ls:0; /* @kind font */
+  --t-h2-w:600; /* @kind font */
+  --t-h3-size:23px; /* @kind font */
+  --t-h3-lh:1.3; /* @kind font */
+  --t-h3-ls:0; /* @kind font */
+  --t-h3-w:600; /* @kind font */
+  --t-title-size:19px; /* @kind font */
+  --t-title-lh:1.4; /* @kind font */
+  --t-title-ls:0; /* @kind font */
+  --t-title-w:600; /* @kind font */
+  --t-body-lg-size:18px; /* @kind font */
+  --t-body-lg-lh:1.6; /* @kind font */
+  --t-body-size:16px; /* @kind font */
+  --t-body-lh:1.6; /* @kind font */
+  --t-body-sm-size:14px; /* @kind font */
+  --t-body-sm-lh:1.55; /* @kind font */
+  --t-caption-size:13px; /* @kind font */
+  --t-caption-lh:1.45; /* @kind font */
+  --t-overline-size:12px; /* @kind font */
+  --t-overline-lh:1.3; /* @kind font */
+  --t-overline-ls:1.6px; /* @kind font */
+  --t-button-size:15px; /* @kind font */
+  --t-button-lh:1; /* @kind font */
+  --t-button-ls:0.2px; /* @kind font */
+  --t-button-w:600; /* @kind font */
+}
